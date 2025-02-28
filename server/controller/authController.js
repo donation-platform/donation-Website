@@ -65,6 +65,7 @@ const login = async (req, res) => {
       return res.status(409).json({ message: "Invalid credentials" });
     }
     console.log(user.user_id);
+
     const token = jwt.sign(
       {
         userId: user.user_id,
@@ -81,7 +82,11 @@ const login = async (req, res) => {
       maxAge: 3600 * 1000,
     });
 
-    return res.status(200).json({ message: "Login successful" });
+    // إرسال الـ user_id مع الاستجابة
+    return res.status(200).json({
+      message: "Login successful",
+      userId: user.user_id, // إرسال الـ user_id
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Error logging in" });
