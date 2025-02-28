@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Register() {
+    const navigate = useNavigate();
     const [registerForm, setRegisterForm] = useState({
         name: "",
         email: "",
@@ -31,17 +33,18 @@ export default function Register() {
                 withCredentials: true,
             });
 
+
             const data = response.data.message;
             console.log(data);
-
-            toast.success("User registered successfully!");
+            if (response.status == 201) {
+                navigate('/')
+            }
 
         } catch (error) {
             if (error.response && error.response.status === 409) {
-                toast.error(error.response.data.message || "User already exists.");
+                console.log(error.response.data.message)
             } else {
                 console.error("Error during registration:", error);
-                toast.error("An error occurred during registration. Please try again.");
             }
         }
     }
@@ -163,7 +166,6 @@ export default function Register() {
                     </div>
                 </div>
             </div>
-            <ToastContainer />
         </>
     );
 }
