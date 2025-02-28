@@ -10,6 +10,7 @@ const Navbar = () => {
 
     const navLinks = [
         { to: "/login", label: "Login" },
+        { to: "/register", label: "register" },
         { to: "/BecomeBeneficiary", label: "Become Beneficiary" },
         { to: "/AdminDash", label: "Admin Dashboard" },
         { to: "/Donations", label: "Donations" },
