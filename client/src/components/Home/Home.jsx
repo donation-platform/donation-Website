@@ -1,9 +1,10 @@
 import NavBar from '../NavBar/NavBar'
+import HeroSection from './HeroSection'
 
 export default function Home() {
     return (
         <div>
-            test
+            <HeroSection/>
         </div>
     )
 }
