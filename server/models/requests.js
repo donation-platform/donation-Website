@@ -1,46 +1,66 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/database").sequelize;
-const { Users } = require("./users");
-const { Categories } = require("./categories");
+
 
 const Requests = sequelize.define("requests", {
-  request_id: {
+  id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
     autoIncrement: true,
+    primaryKey: true,
   },
-  user_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: Users,
-      key: "user_id",
-    },
+  organizationName: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
-  category_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: Categories,
-      key: "category_id",
-    },
-    allowNull: false,
-  },
-  item_name: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  description: {
+  organizationAddress: {
     type: DataTypes.TEXT,
-    allowNull: true,
+    allowNull: false,
+  },
+  phone: {
+    type: DataTypes.STRING(20),
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  contactPerson: {
+    type: DataTypes.STRING,
+  },
+  contactPhone: {
+    type: DataTypes.STRING(20),
+  },
+  toolName: {
+    type: DataTypes.STRING,
+  },
+  medicalEquipment: {
+    type: DataTypes.STRING, // Store file path
+  },
+  quantity: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  estimatedCost: {
+    type: DataTypes.DECIMAL(10, 2),
+  },
+  proofDocument: {
+    type: DataTypes.STRING, // Store file path
+  },
+  hasFundraisingLicense: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  agreement: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
   },
   status: {
-    type: DataTypes.ENUM("pending", "approved", "rejected", "fulfilled"),
+    type: DataTypes.ENUM("pending", "approved", "rejected"),
     defaultValue: "pending",
   },
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
+}, {
+  timestamps: true,
+  tableName: "Requests",
 });
-
 module.exports = { Requests };
