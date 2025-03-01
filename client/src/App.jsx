@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 import {
   Home,
   Login,
@@ -11,7 +12,8 @@ import {
   About,
   Contact,
   PageNotFound,
-  Navbar
+  Navbar,
+  Register
 } from "./components";
 
 
@@ -60,14 +62,21 @@ function App() {
       ],
       errorElement: <PageNotFound />
     },
-    // Login route outside of the layout with Navbar
     {
       path: "/login",
       element: <Login />
+    },
+    {
+      path: '/register',
+      element: <Register />
     }
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;
