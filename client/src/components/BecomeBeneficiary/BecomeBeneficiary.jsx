@@ -14,12 +14,12 @@ export default function BecomeBeneficiary() {
         phone: savedData.phone || "",
         email: savedData.email || "",
         toolName: "",
-        medicalEquipment: null, // ملف
+        medicalEquipment: null, 
         quantity: "",
         estimatedCost: "",
-        proofDocument: null, // ملف
+        proofDocument: null, 
         agreement: false,
-        description: "", 
+        description: "",
         hasFundraisingLicense: ""
     });
 

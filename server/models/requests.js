@@ -31,7 +31,7 @@ const Requests = sequelize.define("requests", {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        
     },
     toolName: {
         type: DataTypes.STRING,
