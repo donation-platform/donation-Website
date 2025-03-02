@@ -1,113 +1,95 @@
-import React from "react";
-import Footer from "../Footer/Footer";
-import { FaHeart } from "react-icons/fa";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import Footer from '../Footer/Footer';
 
-const Donations = () => {
-  return (
-    <>
-    <div className="bg-white min-h-screen "   style={{ fontFamily: "'IBM Plex Sans Arabic', sans-serif" }}>
-    {/* Header Section */}
-    <header className="bg-[#662480] text-white py-6 text-center">
-      <h1 className="text-3xl font-bold">تفاصيل الحملة</h1>
-    </header>
+export default function Donation() {
+    const id = "53c6b4e4-4d74-4d7f-bd2f-b3fca0e417c8";  // Get id from URL
+    const [request, setRequest] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    {/* Main Content */}
-    <div className="container mx-auto px-4 py-8">
-      {/* Featured Image */}
-      <div className="mb-8">
-        <img
-          src="https://i.extremetech.com/imagery/content-types/05worLBI9Nf9qoKMGXNr5Kc/hero-image.jpg"
-          alt="Campaign Image"
-          className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
-        />
-      </div>
+    useEffect(() => {
+        const fetchRequest = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/details/${id}`);
+                setRequest(response.data);
+                setLoading(false);
+            } catch (err) {
+                console.error("Error fetching request:", err);
+                setError("Error fetching campaign details.");
+                setLoading(false);
+            }
+        };
 
-      <div className=" px-20">
-      {/* Campaign Title & Summary with Donation Button */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
+        fetchRequest();
+    }, [id]);
 
-          {/* Campaign Title & Summary */}
-          <div className="flex-1">
-            <h2 className="text-2xl font-bold text-[#E3007E] mb-4">
-              عنوان الحملة: توفير أجهزة طبية لمستشفى الأطفال
-            </h2>
-            <p className="text-gray-700">
-              حملة لجمع التبرعات لتوفير أجهزة طبية حديثة لمستشفى الأطفال في المنطقة. هدفنا هو تحسين الخدمات الطبية وإنقاذ الأرواح.
-            </p>
-          </div>
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
 
-          {/* Donation Button on the Left */}
-          <div className="mb-4 md:mb-0 md:mr-6">
-            <button className="rounded-tl-[18px] rounded-tr-[0px] rounded-br-[18px] rounded-bl-[18px] bg-[#662480] text-white px-4 py-2 rounded-md hover:bg-[#E3007E] transition-colors duration-200 flex items-center justify-center space-x-2">
-              <FaHeart className="text-white" /> {/* Heart Icon */}
-              <span>تبرع الآن</span>
-            </button>
-          </div>
-        </div>
+    return (
+        <>
+            <div className="bg-white min-h-screen" style={{ fontFamily: "'IBM Plex Sans Arabic', sans-serif" }}>
+                <header className="bg-[#662480] text-white py-6 text-center">
+                    <h1 className="text-3xl font-bold">تفاصيل الحملة</h1>
+                </header>
 
+                <div className="container mx-auto px-4 py-8">
+                    <div className="mb-8">
+                        <img
+                            src="https://i.extremetech.com/imagery/content-types/05worLBI9Nf9qoKMGXNr5Kc/hero-image.jpg"
+                            alt="Campaign Image"
+                            className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
+                        />
+                    </div>
 
-      {/* Campaign Progress & Donation Goal */}
-      <div className="mb-8 bg-gray-100 p-6 rounded-lg shadow-sm">
-        <h3 className="text-xl font-bold text-[#662480] mb-4">تقدم الحملة</h3>
-        <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
-          <div
-            className="bg-[#E3007E] h-4 rounded-full"
-            style={{ width: "60%" }}
-          ></div>
-        </div>
-        <div className="flex justify-between text-gray-700">
-          <p>المبلغ المطلوب: 50,000 ريال</p>
-          <p>المبلغ المجموع: 30,000 ريال</p>
-        </div>
-        <p className="text-gray-700 mt-2">تم جمع 60% من الهدف</p>
-      </div>
+                    <div className="px-20">
+                        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
+                            <div className="flex-1">
+                                <h2 className="text-2xl font-bold text-[#E3007E] mb-4">
+                                    عنوان الحملة: {request.toolName}
+                                </h2>
+                                <p className="text-gray-700">
+                                    {request.description}
+                                </p>
+                            </div>
 
-      {/* Beneficiary Information */}
-      <div className="mb-8">
-        <h3 className="text-xl font-bold text-[#662480] mb-4">معلومات المستفيد</h3>
-        <div className="bg-gray-100 p-6 rounded-lg shadow-sm">
-          <p className="text-gray-700">
-            <strong>اسم المستفيد:</strong> مستشفى الأطفال
-          </p>
-          <p className="text-gray-700 mt-2">
-            <strong>نوع المستفيد:</strong> منظمة
-          </p>
-          <p className="text-gray-700 mt-2">
-            <strong>تمت الموافقة من قبل الإدارة:</strong> نعم
-          </p>
-          <p className="text-gray-700 mt-2">
-            <strong>وثائق داعمة:</strong> <a href="#" className="text-[#E3007E] hover:underline">عرض الوثائق</a>
-          </p>
-        </div>
-      </div>
+                            <div className="mb-4 md:mb-0 md:mr-6">
+                                <button className="rounded-tl-[18px] rounded-br-[18px] bg-[#662480] text-white px-4 py-2 rounded-md hover:bg-[#E3007E] transition-colors duration-200">
+                                    تبرع الآن
+                                </button>
+                            </div>
+                        </div>
 
-      {/* Detailed Description */}
-      <div className="mb-8">
-        <h3 className="text-xl font-bold text-[#662480] mb-4">تفاصيل الحملة</h3>
-        <div className="bg-gray-100 p-6 rounded-lg shadow-sm">
-          <p className="text-gray-700">
-            نحن بحاجة إلى توفير أجهزة طبية حديثة لمستشفى الأطفال لتحسين الخدمات الطبية وإنقاذ الأرواح. الأجهزة المطلوبة تشمل أجهزة التنفس الصناعي وأجهزة مراقبة القلب.
-          </p>
-          <p className="text-gray-700 mt-4">
-            <strong>تفاصيل التكاليف:</strong>
-            <ul className="list-disc list-inside">
-              <li>أجهزة التنفس الصناعي: 20,000 ريال</li>
-              <li>أجهزة مراقبة القلب: 15,000 ريال</li>
-              <li>تكاليف النقل والتركيب: 15,000 ريال</li>
-            </ul>
-          </p>
-          <p className="text-gray-700 mt-4">
-            <strong>الأثر المتوقع:</strong> تحسين الخدمات الطبية وإنقاذ حياة الأطفال.
-          </p>
-        </div>
-      </div>
-    </div>
-     
-    </div>
-  </div>
-  <Footer/>
-  </>
-  );
-};
+                        <div className="mb-8 bg-gray-100 p-6 rounded-lg shadow-sm">
+                            <h3 className="text-xl font-bold text-[#662480] mb-4">تقدم الحملة</h3>
+                            <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
+                                <div
+                                    className="bg-[#E3007E] h-4 rounded-full"
+                                    style={{ width: `${(request.amount_raised / request.estimatedCost) * 100}%` }}
+                                ></div>
+                            </div>
+                            <div className="flex justify-between text-gray-700">
+                                <p>المبلغ المطلوب: {request.estimatedCost} ريال</p>
+                                <p>المبلغ المجموع: {request.amount_raised} ريال</p>
+                            </div>
+                        </div>
 
-export default Donations;
+                        <div className="mb-8">
+                            <h3 className="text-xl font-bold text-[#662480] mb-4">معلومات المستفيد</h3>
+                            <div className="bg-gray-100 p-6 rounded-lg shadow-sm">
+                                <p className="text-gray-700"><strong>اسم المستفيد:</strong> {request.organizationName}</p>
+                                <p className="text-gray-700 mt-2"><strong>العنوان:</strong> {request.organizationAddress}</p>
+                                <p className="text-gray-700 mt-2"><strong>رقم الهاتف:</strong> {request.phone}</p>
+                                <p className="text-gray-700 mt-2"><strong>البريد الإلكتروني:</strong> {request.email}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Footer />
+        </>
+    );
+}
+

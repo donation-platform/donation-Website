@@ -8,6 +8,7 @@ const authRoute = require("./routes/auth");
 
 const requestRoutes = require("../server/routes/routeRequests")
 const userRoutes = require("./routes/userRoutes");
+const detailsRoutes=require("./routes/details")
 
 const app = express();
 
@@ -25,14 +26,14 @@ app.use(
 
 // 🟢 تشغيل قاعدة البيانات
 sequelize
-.sync({ force: false })
+.sync()
   .then(() => console.log("Database synced"))
   .catch((err) => console.log("Error syncing database:", err));
 
 app.use("/auth", authRoute);
 app.use("/api/requests", requestRoutes);
 app.use("/api/users", userRoutes); // إضافة المسار
-
+app.use("/api/details", detailsRoutes);
 
 const PORT = 5000;
 app.listen(PORT, async () => {
