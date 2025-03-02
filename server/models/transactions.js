@@ -47,6 +47,6 @@ const Transactions = sequelize.define("transactions", {
   amount: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
   status: { type: DataTypes.ENUM("pending", "completed", "failed"), defaultValue: "pending" },
   created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-});
+})
 
 module.exports = { Transactions };

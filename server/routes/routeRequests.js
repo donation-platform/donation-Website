@@ -5,8 +5,8 @@ const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
 router.post('/submit', upload.fields([
-  { name: 'medicalEquipment', maxCount: 1 },
-  { name: 'proofDocument', maxCount: 1 }
+  { name: 'medicalEquipment'},
+  { name: 'proofDocument' }
 ]), async (req, res) => {
 
   try {
