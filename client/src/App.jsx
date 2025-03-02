@@ -33,7 +33,7 @@ function App() {
         },
         
         {
-          path: "/AdminDash",
+          path: "/AdminDash/*",
           element: <AdminDash />
         },
         {
