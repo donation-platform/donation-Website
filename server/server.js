@@ -4,6 +4,8 @@ const { sequelize } = require("./utils/database");
 const cors = require("cors");
 const authRoute = require("./routes/auth");
 const paymentRoute = require("./routes/payment");
+const userRoutes = require("./routes/userRoutes");
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -16,6 +18,7 @@ app.use(
   })
 );
 
+// 🟢 تشغيل قاعدة البيانات
 sequelize
   .sync()
   .then(() => console.log("Database synced"))
@@ -23,6 +26,8 @@ sequelize
 
 app.use("/auth", authRoute);
 app.use("/payment", paymentRoute);/////////
+app.use("/api/users", userRoutes); // إضافة المسار
+
 
 const PORT = 5000;
 app.listen(PORT, () => {

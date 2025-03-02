@@ -44,7 +44,12 @@ const register = async (req, res) => {
       maxAge: 3600 * 1000,
     });
 
-    return res.status(201).json({ message: "User registered successfully" });
+    return res
+      .status(201)
+      .json({
+        message: "User registered successfully",
+        userId: newUser.user_id,
+      });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Error registering user" });
@@ -82,10 +87,9 @@ const login = async (req, res) => {
       maxAge: 3600 * 1000,
     });
 
-    // إرسال الـ user_id مع الاستجابة
     return res.status(200).json({
       message: "Login successful",
-      userId: user.user_id, // إرسال الـ user_id
+      userId: user.user_id,
     });
   } catch (error) {
     console.error(error);
