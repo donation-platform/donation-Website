@@ -31,7 +31,7 @@ function App() {
           element: <BecomeBeneficiary />
         },
         {
-          path: "/AdminDash",
+          path: "/AdminDash/*",
           element: <AdminDash />
         },
         {
