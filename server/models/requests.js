@@ -3,64 +3,80 @@ const sequelize = require("../utils/database").sequelize;
 
 
 const Requests = sequelize.define("requests", {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  organizationName: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  organizationAddress: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  phone: {
-    type: DataTypes.STRING(20),
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  contactPerson: {
-    type: DataTypes.STRING,
-  },
-  contactPhone: {
-    type: DataTypes.STRING(20),
-  },
-  toolName: {
-    type: DataTypes.STRING,
-  },
-  medicalEquipment: {
-    type: DataTypes.STRING, // Store file path
-  },
-  quantity: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  estimatedCost: {
-    type: DataTypes.DECIMAL(10, 2),
-  },
-  proofDocument: {
-    type: DataTypes.STRING, // Store file path
-  },
-  hasFundraisingLicense: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-  },
-  agreement: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.ENUM("pending", "approved", "rejected"),
-    defaultValue: "pending",
-  },
+
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,  
+        allowNull: false,
+        primaryKey: true
+    },
+
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+
+    organizationName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    organizationAddress: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    phone: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    toolName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    medicalEquipment: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    estimatedCost: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false
+    },
+    proofDocument: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    hasFundraisingLicense: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    agreement: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    status: {
+        type: DataTypes.ENUM("pending", "approved", "rejected"),
+        defaultValue: "pending"
+    },
+    description: {  
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    amount_raised: {  
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false,
+        defaultValue: 0
+    }
 }, {
-  timestamps: true,
-  tableName: "Requests",
+    tableName: "requests",
+    timestamps: true
 });
+
 module.exports = { Requests };

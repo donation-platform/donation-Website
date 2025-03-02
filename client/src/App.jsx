@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 import {
   Home,
   Login,
@@ -11,8 +12,10 @@ import {
   About,
   Contact,
   PageNotFound,
-  Navbar
+  Navbar,
+  Register,
 } from "./components";
+import MedicalList from "./components/MedicalList/MedicalList "
 
 
 function App() {
@@ -29,6 +32,7 @@ function App() {
           path: "/BecomeBeneficiary",
           element: <BecomeBeneficiary />
         },
+        
         {
           path: "/AdminDash",
           element: <AdminDash />
@@ -56,18 +60,29 @@ function App() {
         {
           path: "/Contact",
           element: <Contact />
+        },
+        {
+          path: '/MedicalList',
+          element: <MedicalList/>
         }
       ],
       errorElement: <PageNotFound />
     },
-    // Login route outside of the layout with Navbar
     {
       path: "/login",
       element: <Login />
+    },
+    {
+      path: '/register',
+      element: <Register />
     }
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;
