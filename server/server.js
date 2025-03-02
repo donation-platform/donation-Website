@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const { sequelize } = require("./utils/database");
 const cors = require("cors");
 const authRoute = require("./routes/auth");
+const paymentRoute = require("./routes/payment");
 
 const requestRoutes = require("../server/routes/routeRequests")
 const userRoutes = require("./routes/userRoutes");
@@ -31,6 +32,7 @@ sequelize
   .catch((err) => console.log("Error syncing database:", err));
 
 app.use("/auth", authRoute);
+app.use("/payment", paymentRoute);/////////
 app.use("/api/requests", requestRoutes);
 app.use("/api/users", userRoutes); // إضافة المسار
 app.use("/api/details", detailsRoutes);

@@ -13,7 +13,7 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       state.id = action.payload.id;
       state.email = action.payload.email;
-    },
+    },  
     clearUser: (state) => {
       state.id = null;
       state.email = null;
