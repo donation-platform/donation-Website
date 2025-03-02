@@ -87,12 +87,9 @@ const login = async (req, res) => {
       maxAge: 3600 * 1000,
     });
 
-    console.log(token)
-
-    // إرسال الـ user_id مع الاستجابة
     return res.status(200).json({
       message: "Login successful",
-      userId: user.user_id, // إرسال الـ user_id
+      userId: user.user_id,
     });
   } catch (error) {
     console.error(error);

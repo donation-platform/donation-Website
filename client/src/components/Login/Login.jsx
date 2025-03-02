@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -107,12 +106,9 @@ export default function Login() {
 
           <div>
             <div className="flex items-center justify-between mb-1">
-              <a href="#" className="text-xs text-indigo-600 hover:text-indigo-500">
-                نسيت كلمة المرور؟
-              </a>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 mb-1"
               >
                 كلمة المرور
               </label>
