@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 function HeroSection() {
   return (
     <>
-      <div className="relative w-full h-100 flex items-center text-white" style={{ fontFamily: "'IBM Plex Sans Arabic', sans-serif"}}>
+    <div className='w-full h-2 bg-[#E3007E]'></div>
+      <div className="relative w-full h-130 flex items-center text-white" style={{ fontFamily: "'IBM Plex Sans Arabic', sans-serif"}}>
         {/* Background Video */}
         <video
-          className="absolute inset-0 w-full h-full object-cover object-[0px_-1600px]"
+          className="absolute inset-0 w-full h-full object-cover object-[0px_-1500px]"
           autoPlay
           loop
           muted
@@ -28,10 +29,11 @@ function HeroSection() {
         {/* Content - Aligned to the Right */}
         <div className="relative z-10 max-w-4xl ml-auto px-10 lg:px-20 text-right">
           <h1 className="text-3xl md:text-4xl max-w-[500px] mb-[40px] font-bold">
-            تبرع بالأدوات الطبية لإنقاذ الأرواح
+            ساهم في توفير الأجهزة والمستلزمات الطبية لمن هم بحاجة إليها
           </h1>
           <p className="mt-4 text-md max-w-[500px] text-white">
-            ساهم في تقديم الأدوات الطبية للمحتاجين وساعد في إنقاذ الأرواح. تبرع الآن وكن جزءًا من هذا العمل الإنساني.
+          في "أفق"، نؤمن أن كل محتاج له حق، وكل قادر على العطاء له فرصة!
+          تبرع الآن، فخيرُ الناس أنفعهم للناس
           </p>
 
           {/* CTA Button */}
@@ -55,6 +57,7 @@ function HeroSection() {
             }
         `}</style>
       </div>
+      <div className='w-full h-2 bg-[#E3007E]'></div>
     </>
   );
 }
