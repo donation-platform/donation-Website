@@ -1,46 +1,82 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/database").sequelize;
-const { Users } = require("./users");
-const { Categories } = require("./categories");
+
 
 const Requests = sequelize.define("requests", {
-  request_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  user_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: Users,
-      key: "user_id",
+
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,  
+        allowNull: false,
+        primaryKey: true
     },
-    allowNull: false,
-  },
-  category_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: Categories,
-      key: "category_id",
+
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
-    allowNull: false,
-  },
-  item_name: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-  status: {
-    type: DataTypes.ENUM("pending", "approved", "rejected", "fulfilled"),
-    defaultValue: "pending",
-  },
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
+
+    organizationName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    organizationAddress: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    phone: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    toolName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    medicalEquipment: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    estimatedCost: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false
+    },
+    proofDocument: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    hasFundraisingLicense: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    agreement: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    status: {
+        type: DataTypes.ENUM("pending", "approved", "rejected"),
+        defaultValue: "pending"
+    },
+    description: {  
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    amount_raised: {  
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false,
+        defaultValue: 0
+    }
+}, {
+    tableName: "requests",
+    timestamps: true
 });
 
 module.exports = { Requests };

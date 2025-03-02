@@ -12,8 +12,9 @@ import {
   Contact,
   PageNotFound,
   Navbar,
-  Register
+  Register,
 } from "./components";
+import MedicalList from "./components/MedicalList/MedicalList "
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           path: "/BecomeBeneficiary",
           element: <BecomeBeneficiary />
         },
+        
         {
           path: "/AdminDash/*",
           element: <AdminDash />
@@ -57,6 +59,10 @@ function App() {
         {
           path: "/Contact",
           element: <Contact />
+        },
+        {
+          path: '/MedicalList',
+          element: <MedicalList/>
         }
       ],
       errorElement: <PageNotFound />
