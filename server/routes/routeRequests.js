@@ -4,17 +4,10 @@ const { Requests } = require("../models/requests");
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-router.post(
-  "/submit",
-  upload.fields([
-    { name: "medicalEquipment", maxCount: 1 },
-    { name: "proofDocument", maxCount: 1 },
-  ]),
-  async (req, res) => {
-    try {
-      if (!req.body.user_id) {
-        return res.status(400).json({ error: "user_id is required" });
-      }
+router.post('/submit', upload.fields([
+  { name: 'medicalEquipment'},
+  { name: 'proofDocument' }
+]), async (req, res) => {
 
       const newRequest = await Requests.create({
         user_id: parseInt(req.body.user_id, 10),
