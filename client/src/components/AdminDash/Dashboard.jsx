@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 import { Info, MoreHorizontal, DollarSign, Users, TrendingUp, Activity } from 'lucide-react';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/auth/check", {
+          withCredentials: true,
+        });
+
+        if (response.status !== 200) {
+          navigate("/"); // Redirect to home if status is not 200
+        }
+      } catch (error) {
+        console.error("Auth check failed:", error);
+        navigate("/"); // Redirect to home on error
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
+
   const donationStats = {
     totalDonations: 10000,
     donorCount: 150,
@@ -10,6 +33,7 @@ const Dashboard = () => {
       { id: 2, donor: 'Bob', amount: 150 },
     ],
   };
+
 
   return (
     <div className="bg-white rounded-xl shadow-md border border-gray-100" dir="rtl">
@@ -39,7 +63,7 @@ const Dashboard = () => {
             <p className="text-3xl font-bold text-gray-800">${donationStats.totalDonations.toLocaleString()}</p>
             <p className="text-sm text-blue-600 mt-2">+12% عن الشهر الماضي</p>
           </div>
-          
+
           <div className="bg-gradient-to-r from-emerald-50 to-teal-50 p-6 rounded-xl shadow-sm border border-emerald-100">
             <div className="flex items-center mb-2">
               <div className="p-2 bg-emerald-100 rounded-lg ml-3">
@@ -50,7 +74,7 @@ const Dashboard = () => {
             <p className="text-3xl font-bold text-gray-800">{donationStats.donorCount}</p>
             <p className="text-sm text-emerald-600 mt-2">+5 جديد هذا الأسبوع</p>
           </div>
-          
+
           <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-6 rounded-xl shadow-sm border border-amber-100">
             <div className="flex items-center mb-2">
               <div className="p-2 bg-amber-100 rounded-lg ml-3">
@@ -73,7 +97,7 @@ const Dashboard = () => {
             </div>
             <button className="text-sm text-blue-600 hover:text-blue-800 font-medium">عرض الكل</button>
           </div>
-          
+
           <ul className="divide-y divide-gray-100">
             {donationStats.recentDonations.map(donation => (
               <li key={donation.id} className="py-4 flex items-center justify-between">
@@ -90,7 +114,7 @@ const Dashboard = () => {
               </li>
             ))}
           </ul>
-          
+
           {donationStats.recentDonations.length === 0 && (
             <div className="py-8 text-center">
               <p className="text-gray-500">لا توجد تبرعات حديثة</p>
