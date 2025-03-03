@@ -1,3 +1,5 @@
+
+
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/database").sequelize;
 
@@ -54,7 +56,7 @@ const Requests = sequelize.define(
     },
     hasFundraisingLicense: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
     },
     agreement: {
       type: DataTypes.BOOLEAN,

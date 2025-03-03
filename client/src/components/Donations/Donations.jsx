@@ -1,113 +1,115 @@
-import React from "react";
-import Footer from "../Footer/Footer";
-import { FaHeart } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import "./Donations.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Donations = () => {
-  return (
-    <>
-    <div className="bg-white min-h-screen "   style={{ fontFamily: "'IBM Plex Sans Arabic', sans-serif" }}>
-    {/* Header Section */}
-    <header className="bg-[#662480] text-white py-6 text-center">
-      <h1 className="text-3xl font-bold">تفاصيل الحملة</h1>
-    </header>
+    const [donations, setDonations] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();  // 👈 Use useNavigate here
 
-    {/* Main Content */}
-    <div className="container mx-auto px-4 py-8">
-      {/* Featured Image */}
-      <div className="mb-8">
-        <img
-          src="https://i.extremetech.com/imagery/content-types/05worLBI9Nf9qoKMGXNr5Kc/hero-image.jpg"
-          alt="Campaign Image"
-          className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
-        />
-      </div>
+    useEffect(() => {
+        axios.get("http://localhost:5000/api/requests/donations")
+            .then(response => {
+                const approvedDonations = response.data.filter(donation => donation.status === "approved");
+                setDonations(approvedDonations);
+            })
+            .catch(error => {
+                console.error("Error fetching donations:", error);
+            });
+    }, []);
 
-      <div className=" px-20">
-      {/* Campaign Title & Summary with Donation Button */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
+    const filteredDonations = donations.filter(donation => 
+        donation.toolName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
-          {/* Campaign Title & Summary */}
-          <div className="flex-1">
-            <h2 className="text-2xl font-bold text-[#E3007E] mb-4">
-              عنوان الحملة: توفير أجهزة طبية لمستشفى الأطفال
-            </h2>
-            <p className="text-gray-700">
-              حملة لجمع التبرعات لتوفير أجهزة طبية حديثة لمستشفى الأطفال في المنطقة. هدفنا هو تحسين الخدمات الطبية وإنقاذ الأرواح.
-            </p>
-          </div>
+      // 👇 Function to navigate to details page
+      const handleDetailsClick = (donationId) => {
+        navigate(`/DonationDetails/${donationId}`);
+    };
 
-          {/* Donation Button on the Left */}
-          <div className="mb-4 md:mb-0 md:mr-6">
-            <button className="rounded-tl-[18px] rounded-tr-[0px] rounded-br-[18px] rounded-bl-[18px] bg-[#662480] text-white px-4 py-2 rounded-md hover:bg-[#E3007E] transition-colors duration-200 flex items-center justify-center space-x-2">
-              <FaHeart className="text-white" /> {/* Heart Icon */}
-              <span>تبرع الآن</span>
-            </button>
-          </div>
-        </div>
+    return (
+        <>
+            {/* Hero Section */}
+            <div className="heroSection"> 
+                <video
+                    className="herovideo"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                >
+                    <source src="https://videos.pexels.com/video-files/8400788/8400788-sd_640_360_25fps.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                <div className="herooverl"></div>
+                <div className="heroContent">
+                    <h1 className="herosubtitle">التبرع هو باب للخير، كن جزءًا من رحلة العطاءمع   <span>  أُفُق الخير.</span></h1>
+                </div>
+            </div>
 
-
-      {/* Campaign Progress & Donation Goal */}
-      <div className="mb-8 bg-gray-100 p-6 rounded-lg shadow-sm">
-        <h3 className="text-xl font-bold text-[#662480] mb-4">تقدم الحملة</h3>
-        <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
-          <div
-            className="bg-[#E3007E] h-4 rounded-full"
-            style={{ width: "60%" }}
-          ></div>
-        </div>
-        <div className="flex justify-between text-gray-700">
-          <p>المبلغ المطلوب: 50,000 ريال</p>
-          <p>المبلغ المجموع: 30,000 ريال</p>
-        </div>
-        <p className="text-gray-700 mt-2">تم جمع 60% من الهدف</p>
-      </div>
-
-      {/* Beneficiary Information */}
-      <div className="mb-8">
-        <h3 className="text-xl font-bold text-[#662480] mb-4">معلومات المستفيد</h3>
-        <div className="bg-gray-100 p-6 rounded-lg shadow-sm">
-          <p className="text-gray-700">
-            <strong>اسم المستفيد:</strong> مستشفى الأطفال
-          </p>
-          <p className="text-gray-700 mt-2">
-            <strong>نوع المستفيد:</strong> منظمة
-          </p>
-          <p className="text-gray-700 mt-2">
-            <strong>تمت الموافقة من قبل الإدارة:</strong> نعم
-          </p>
-          <p className="text-gray-700 mt-2">
-            <strong>وثائق داعمة:</strong> <a href="#" className="text-[#E3007E] hover:underline">عرض الوثائق</a>
-          </p>
-        </div>
-      </div>
-
-      {/* Detailed Description */}
-      <div className="mb-8">
-        <h3 className="text-xl font-bold text-[#662480] mb-4">تفاصيل الحملة</h3>
-        <div className="bg-gray-100 p-6 rounded-lg shadow-sm">
-          <p className="text-gray-700">
-            نحن بحاجة إلى توفير أجهزة طبية حديثة لمستشفى الأطفال لتحسين الخدمات الطبية وإنقاذ الأرواح. الأجهزة المطلوبة تشمل أجهزة التنفس الصناعي وأجهزة مراقبة القلب.
-          </p>
-          <p className="text-gray-700 mt-4">
-            <strong>تفاصيل التكاليف:</strong>
-            <ul className="list-disc list-inside">
-              <li>أجهزة التنفس الصناعي: 20,000 ريال</li>
-              <li>أجهزة مراقبة القلب: 15,000 ريال</li>
-              <li>تكاليف النقل والتركيب: 15,000 ريال</li>
-            </ul>
-          </p>
-          <p className="text-gray-700 mt-4">
-            <strong>الأثر المتوقع:</strong> تحسين الخدمات الطبية وإنقاذ حياة الأطفال.
-          </p>
-        </div>
-      </div>
-    </div>
-     
-    </div>
-  </div>
-  <Footer/>
-  </>
-  );
+            {/* Donations Section */}
+            <div className="w-layout-blockcontainer containerwhite wcontainer">
+                <div className="content-div">
+                    <div className="heading-div">
+                        <h1 className="heading-280">خيارات التـبرع:</h1>
+                        <div class="InputContainer">
+                        <input 
+                            type="text" 
+                            placeholder="ابحث عن أداة" 
+                            id="input"
+                            className="input"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        </div>
+                      
+                    </div>
+                    <div className="grid-div">
+                        <div className="w-dyn-list">
+                            <div role="list" className="collection-list-17 w-dyn-items">
+                                {filteredDonations.length > 0 ? (
+                                    filteredDonations.map((donation, index) => (
+                                        <div key={index} role="listitem" className="w-dyn-item">
+                                            <div className="cat-div">
+                                                <div className="img-div">
+                                                    <img
+                                                        src={donation.medicalEquipment 
+                                                            ? `http://localhost:5000/${donation.medicalEquipment.replace("\\", "/")}`
+                                                            : "https://via.placeholder.com/150"} 
+                                                        loading="lazy"
+                                                        alt={donation.organizationName || "صورة التبرع"}
+                                                    />
+                                                </div>
+                                                <div className="div-block-189">
+                                                    <div className="div-block-190">
+                                                        <div className="link-block-5 w-inline-block">
+                                                            <div className="text-block-111">{donation.organizationName}</div>
+                                                            <div className="text-block-222">{donation.toolName}</div>
+                                                        </div> 
+                                                    </div>
+                                                    <div className="div-block-191">
+                                                    <button 
+                                                            onClick={() => handleDetailsClick(donation.id)} 
+                                                            className="button-6 w-button"
+                                                        >
+                                                            المزيد
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className="text-gray-500">لا توجد تبرعات متاحة حاليًا.</p>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 };
 
 export default Donations;
