@@ -21,7 +21,7 @@ router.post('/submit', upload.fields([
         organizationName: req.body.organizationName,
         organizationAddress: req.body.organizationAddress,
         phone: req.body.phone,
-        email: req.body.email,
+        email: req.body.email ,
         toolName: req.body.toolName,
         medicalEquipment: req.files["medicalEquipment"] ? req.files["medicalEquipment"][0].path : null,
         quantity: parseInt(req.body.quantity),

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 
 export default function DonationDetails() {
-    const id = "53c6b4e4-4d74-4d7f-bd2f-b3fca0e417c8";  // Get id from URL
+    const id = useParams();  // Get id from URL
     const [request, setRequest] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
