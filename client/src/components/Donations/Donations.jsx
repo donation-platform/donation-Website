@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Donations.css";
 import axios from "axios";
+import Footer from '../Footer/Footer';
 import { useNavigate } from "react-router-dom";
 
 const Donations = () => {
@@ -108,6 +109,7 @@ const Donations = () => {
                     </div>
                 </div>
             </div>
+        <Footer/>
         </>
     );
 };
