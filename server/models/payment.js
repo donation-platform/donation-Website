@@ -1,6 +1,5 @@
-
-const { DataTypes } = require("sequelize");
-const sequelize = require("../utils/database").sequelize;
+const { DataTypes } = require('sequelize');
+const sequelize = require('../utils/database').sequelize;
 
 const Payment = sequelize.define('Payment', {
     id: {
