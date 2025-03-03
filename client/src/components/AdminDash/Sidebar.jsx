@@ -1,5 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { clearUser } from "../../store/userSlice"; 
 import {
   FaHome,
   FaTachometerAlt,
@@ -7,16 +10,34 @@ import {
   FaUsers,
   FaChartBar,
   FaTimes,
+  FaSignOutAlt,
 } from "react-icons/fa";
 
 export default function Sidebar({ isSidebarOpen, toggleSidebar }) {
-  // Arabic menu items
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  
   const menuItems = [
     { icon: <FaTachometerAlt />, label: "لوحة التحكم", path: "/AdminDash" },
     { icon: <FaHandHoldingHeart />, label: "التبرعات", path: "/AdminDash/donations" },
     { icon: <FaUsers />, label: "المستفيدين", path: "/AdminDash/beneficiaries" },
     { icon: <FaChartBar />, label: "التقارير", path: "/AdminDash/reports" },
   ];
+
+  
+  const handleLogout = async () => {
+    try {
+      
+      await axios.post("http://localhost:5000/auth/logout", {}, { withCredentials: true });
+
+      dispatch(clearUser());
+
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   return (
     <aside
@@ -27,7 +48,7 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }) {
         transform transition-transform duration-300 ease-in-out
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full sm:translate-x-0"}
       `}
-      dir="rtl" 
+      dir="rtl"
     >
       {/* Header / Logo */}
       <div className="p-4 sm:p-6 border-b border-[#E3007E] flex items-center justify-between">
@@ -54,7 +75,7 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }) {
               <Link
                 to={item.path}
                 className="flex items-center px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-white transition-all duration-300 group hover:bg-[#FF5BA8] hover:text-white"
-                onClick={toggleSidebar} 
+                onClick={toggleSidebar}
               >
                 <span className="text-lg text-white group-hover:text-white ml-3">
                   {item.icon}
@@ -67,6 +88,19 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }) {
           ))}
         </ul>
       </nav>
+
+      {/* Logout Button */}
+      <div className="p-4 sm:p-6 border-t border-[#E3007E]">
+        <button
+          onClick={handleLogout}
+          className="flex items-center w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-white transition-all duration-300 hover:bg-[#FF5BA8] hover:text-white"
+        >
+          <span className="text-lg text-white ml-3">
+            <FaSignOutAlt />
+          </span>
+          <span className="text-sm sm:text-base font-medium">تسجيل الخروج</span>
+        </button>
+      </div>
     </aside>
   );
 }

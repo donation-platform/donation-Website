@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, CheckCircle, XCircle, Search, FileText, User } from 'lucide-react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 import BeneficiaryProfile from './modals/BeneficiaryProfile';
 
 const Beneficiaries = () => {
-  const [beneficiaries, setBeneficiaries] = useState([]); 
+
+  const navigate = useNavigate();
+
+  const [beneficiaries, setBeneficiaries] = useState([]);
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(null);
   const [loading, setLoading] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [currentPage, setCurrentPage] = useState(1); 
-  const itemsPerPage = 5; 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     const fetchBeneficiaries = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/', { withCredentials: true });
-        setBeneficiaries(response.data); 
+        if (response.status == 200) {
+          setBeneficiaries(response.data); 
+        } else {
+          navigate('/')
+        }
       } catch (error) {
         console.error('Error fetching beneficiaries:', error);
       }
@@ -25,16 +34,16 @@ const Beneficiaries = () => {
   }, []);
 
   const updateBeneficiaryStatus = async (id, newStatus) => {
-    setLoading(id); 
+    setLoading(id);
     try {
-      const response = await axios.put(`http://localhost:5000/api/${id}/status`, { status: newStatus });
+      const response = await axios.put(`http://localhost:5000/api/${id}/status`, { status: newStatus }, {withCredentials: true});
       setBeneficiaries((prev) =>
         prev.map((b) => (b.id === id ? response.data.request : b))
       );
     } catch (error) {
       console.error('Error updating status:', error);
     } finally {
-      setLoading(null); 
+      setLoading(null);
     }
   };
 
@@ -121,13 +130,12 @@ const Beneficiaries = () => {
                   </td>
                   <td className="px-6 py-4">
                     <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        beneficiary.status === 'approved'
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${beneficiary.status === 'approved'
                           ? 'bg-green-100 text-green-800'
                           : beneficiary.status === 'rejected'
-                          ? 'bg-red-100 text-red-800'
-                          : 'bg-amber-100 text-amber-800'
-                      }`}
+                            ? 'bg-red-100 text-red-800'
+                            : 'bg-amber-100 text-amber-800'
+                        }`}
                     >
                       {beneficiary.status === 'approved' && <CheckCircle size={12} className="ml-1" />}
                       {beneficiary.status === 'rejected' && <XCircle size={12} className="ml-1" />}

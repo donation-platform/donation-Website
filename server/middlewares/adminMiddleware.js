@@ -15,12 +15,11 @@ function isAdmin(req, res, next) {
       return res.status(403).json({ message: "Invalid token" });
     }
 
-    // Check if the user is an admin
     if (decoded.user_type !== "admin") {
       return res.status(403).json({ message: "Access denied. Admins only." });
     }
 
-    req.user = decoded; // Attach the decoded user to the request object
+    req.user = decoded; 
     next();
   });
 }
