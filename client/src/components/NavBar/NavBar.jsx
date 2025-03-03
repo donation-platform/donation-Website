@@ -21,12 +21,12 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+   
     useEffect(() => {
       if (user.id) {
         fetchUserData();
       }
-    }, );
+    },[] );
 
   const fetchUserData = async () => {
     const controller = new AbortController();
@@ -47,10 +47,16 @@ const Navbar = () => {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+    await axios.post("http://localhost:5000/auth/logout", {}, { withCredentials: true });
+
     dispatch(clearUser()); // Clear user from Redux store
     setIsProfileOpen(false); // Close the dropdown
     navigate("/");
+    } catch (error){
+        console.error ('Error logging out' , error)
+    }
   };
 
   const getLinkClass = (path) => {

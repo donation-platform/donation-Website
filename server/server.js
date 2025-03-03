@@ -54,6 +54,9 @@ const cookieParser = require("cookie-parser");
 const { sequelize } = require("./utils/database");
 const cors = require("cors");
 const authRoute = require("./routes/auth");
+// const paymentRoute = require("./routes/payment");
+const adminRoute = require("./routes/adminRoute");
+// const requestRoutes = require("../server/routes/routeRequests")
 const path = require("path"); 
 
 const routeRequests = require("./routes/routeRequests");
@@ -87,7 +90,8 @@ app.use("/auth", authRoute);
 app.use("/api/requests", routeRequests);
 app.use("/api/users", userRoutes);
 app.use("/api/details", detailsRoutes);
-app.use("/api/payment", paymentRoutes);  // Add the payment route
+app.use("/api/payment", paymentRoutes);  
+app.use("/api", adminRoute); 
 
 const PORT = 5000;
 app.listen(PORT, async () => {

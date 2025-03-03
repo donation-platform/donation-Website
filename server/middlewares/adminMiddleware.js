@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-function verify(req, res, next) {
+function isAdmin(req, res, next) {
   const token = req.cookies.token;
 
   if (!token) {
@@ -19,9 +19,9 @@ function verify(req, res, next) {
       return res.status(403).json({ message: "Access denied. Admins only." });
     }
 
-    req.user = decoded;
+    req.user = decoded; 
     next();
   });
 }
 
-module.exports = verify;
+module.exports = isAdmin;
