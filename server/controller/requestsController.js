@@ -1,21 +1,19 @@
 const { Requests } = require("../models/requests");
 
-// Controller to get request details by ID
-const getRequestById = async (req, res) => {
-    const { id } = req.params;
+
+const getRequests = async (req, res) => {
     try {
-        const request = await Requests.findOne({ where: { id } });
+        const requests = await Requests.findAll({
+            attributes: ["organizationName", "toolName", "medicalEquipment","status","id"],
+            order: [["createdAt", "DESC"]],
+        });
 
-        if (!request) {
-            return res.status(404).json({ message: "Request not found" });
-        }
-
-        res.json(request);
-        console.log("woooooooooooooooooooorkkkkk:"+ request);
+        res.json(requests);
+        console.log(requests);
     } catch (error) {
-        console.error("Error fetching request:", error);
-        res.status(500).json({ message: "Server error" });
+        console.error("Error fetching donation requests:", error);
+        res.status(500).json({ message: "Error retrieving data" });
     }
 };
 
-module.exports = { getRequestById };
+module.exports = { getRequests };

@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Footer from '../Footer/Footer';
+import { useNavigate } from "react-router-dom";
+import { FaHeart } from "react-icons/fa";
 
 export default function DonationDetails() {
-    const id = useParams();  // Get id from URL
+    const id = useParams().id;  // Get id from URL
+    console.log(id);
     const [request, setRequest] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const navigate = useNavigate();  // 👈 Use useNavigate here
     useEffect(() => {
         const fetchRequest = async () => {
             try {
@@ -28,6 +31,10 @@ export default function DonationDetails() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
+    const handleDetailsClick = (donationId) => {
+        navigate(`/Payment/${donationId}`);
+    };
+
     return (
         <>
             <div className="bg-white min-h-screen" style={{ fontFamily: "'IBM Plex Sans Arabic', sans-serif" }}>
@@ -38,7 +45,9 @@ export default function DonationDetails() {
                 <div className="container mx-auto px-4 py-8">
                     <div className="mb-8">
                         <img
-                            src="https://i.extremetech.com/imagery/content-types/05worLBI9Nf9qoKMGXNr5Kc/hero-image.jpg"
+                            src={request.medicalEquipment 
+                                ? `http://localhost:5000/${request.medicalEquipment.replace("\\", "/")}`
+                                : "https://via.placeholder.com/150"} 
                             alt="Campaign Image"
                             className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
                         />
@@ -55,11 +64,12 @@ export default function DonationDetails() {
                                 </p>
                             </div>
 
-                            <div className="mb-4 md:mb-0 md:mr-6">
-                                <button className="rounded-tl-[18px] rounded-br-[18px] bg-[#662480] text-white px-4 py-2 rounded-md hover:bg-[#E3007E] transition-colors duration-200">
-                                    تبرع الآن
-                                </button>
-                            </div>
+                            <div className="mb-8">
+          <button  onClick={() => handleDetailsClick(request.id)} className="bg-[#E3007E] rounded-tl-[18px]  rounded-br-[18px] text-white px-6 py-3 rounded-lg hover:bg-[#C9006E] transition-colors duration-200 flex items-center justify-center space-x-2">
+            <FaHeart className="text-white" /> {/* Heart Icon */}
+            <span>تبرع الآن</span>
+          </button>
+        </div>
                         </div>
 
                         <div className="mb-8 bg-gray-100 p-6 rounded-lg shadow-sm">
