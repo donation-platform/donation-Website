@@ -14,7 +14,7 @@ import {
   Navbar,
   Register,
 } from "./components";
-import MedicalList from "./components/MedicalList/MedicalList "
+
 
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
         },
         
         {
-          path: "/AdminDash",
+          path: "/AdminDash/*",
           element: <AdminDash />
         },
         {
@@ -60,10 +60,6 @@ function App() {
           path: "/Contact",
           element: <Contact />
         },
-        {
-          path: '/MedicalList',
-          element: <MedicalList/>
-        }
       ],
       errorElement: <PageNotFound />
     },

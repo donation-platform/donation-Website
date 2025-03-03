@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function BecomeBeneficiary() {
     const user_id = useSelector((state) => state.user.id);
@@ -40,7 +42,7 @@ export default function BecomeBeneficiary() {
         setIsSubmitting(true);
 
         if (!user_id) {
-            alert("يجب تسجيل الدخول لإرسال الطلب.");
+            toast.error("يجب تسجيل الدخول لإرسال الطلب.");
             setIsSubmitting(false);
             return;
         }
@@ -71,7 +73,7 @@ export default function BecomeBeneficiary() {
                 headers: { "Content-Type": "multipart/form-data" },
             });
 
-            alert("تم إرسال طلبك بنجاح! سيتم مراجعته من قبل الإدارة.");
+            toast.success("تم إرسال طلبك بنجاح! سيتم مراجعته من قبل الإدارة.");
 
             // ✅ تخزين بيانات المستخدم الأساسية مرة واحدة فقط بعد الإرسال الأول
             if (!localStorage.getItem(`userData-${user_id}`)) {
@@ -97,7 +99,7 @@ export default function BecomeBeneficiary() {
             }));
         } catch (error) {
             console.error("Error submitting form:", error.response ? error.response.data : error.message);
-            alert("حدث خطأ أثناء إرسال الطلب. حاول مرة أخرى.");
+            toast.error("حدث خطأ أثناء إرسال الطلب. حاول مرة أخرى.");
         } finally {
             setIsSubmitting(false);
         }
@@ -105,6 +107,19 @@ export default function BecomeBeneficiary() {
 
     return (
         <section className="flex flex-col items-start justify-center " style={{  fontFamily: "'IBM Plex Sans Arabic', sans-serif"}}>
+        {/* Toast Container */}
+        <ToastContainer 
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={true}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+        />
+        
         {/* Container 50 */}
         <div className="w-full max-w-3xl p-6 pr-16 " style={{ marginRight: '200px',  marginBottom: '30px' }}>
           <div>
@@ -182,7 +197,7 @@ export default function BecomeBeneficiary() {
                         </div>
         
                         {/* سؤال عن ترخيص جمع المال */}
-                        <div>
+                        {/* <div>
                             <label className="block mb-1 font-semibold flex " style={{  color:'#662480' }}>هل لدى المنظمة ترخيص جمع مال حالي / ساري؟</label>
                             <select name="hasFundraisingLicense" 
                             value={formData.hasFundraisingLicense} onChange={handleChange}
@@ -194,7 +209,7 @@ export default function BecomeBeneficiary() {
    
                          </select>
                             
-                        </div>
+                        </div> */}
         
                         {/* رفع إثبات الحاجة */}
                         <div>
@@ -228,11 +243,3 @@ export default function BecomeBeneficiary() {
         </section> 
     );
 }
-
-
-                        {/* <div className="flex ">
-    <button className="w-40 h-12 bg-white cursor-pointer rounded-3xl border-2 border-[#E3007E] shadow-[inset_0px_-2px_0px_1px_#E3007E] group hover:bg-[#E3007E] transition duration-300 ease-in-out">
-        <span className="font-medium text-[#333] group-hover:text-white">إرسال</span>
-    </button>
-</div> */}
-

@@ -2,10 +2,14 @@ const express = require("express");
 const multer = require('multer');
 const { Requests } = require("../models/requests");
 const router = express.Router();
+const { getRequests } = require("../controller/requestsController");
 const upload = multer({ dest: 'uploads/' });
 
+
+router.get("/donations", getRequests);
+
 router.post('/submit', upload.fields([
-  { name: 'medicalEquipment' },
+  { name: 'medicalEquipment'},
   { name: 'proofDocument' }
 ]), async (req, res) => {
 
