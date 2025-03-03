@@ -1,35 +1,64 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux"; // Import Redux hooks
 import { clearUser } from "../../store/userSlice"; // Import clearUser action
 import logo from "../images/logo.png";
 import { UserCircle, ChevronDown, Menu, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false); // State for profile dropdown
+  const [username, setUsername]= useState("");
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Get user from Redux store
   const user = useSelector((state) => state.user);
-    console.log(user);
+  console.log(user);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+    useEffect(() => {
+      if (user.id) {
+        fetchUserData();
+      }
+    }, );
+
+  const fetchUserData = async () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+  
+    try {
+      const response = await axios.get(`http://localhost:5000/api/users/profile/${user.id}`, { signal });
+  
+      console.log("User Data:", response.data);
+  
+      if (response.data.user) {
+        setUsername( response.data.user.name);
+      }
+    } catch (err) {
+      if (err.name !== "AbortError") {
+        console.error(err);
+      }
+    }
   };
 
   const handleLogout = () => {
     dispatch(clearUser()); // Clear user from Redux store
     setIsProfileOpen(false); // Close the dropdown
+    navigate("/");
   };
 
   const getLinkClass = (path) => {
     const isActive = location.pathname === path;
-    return `relative px-3 py-2 transition-colors duration-200 ${
-      isActive
-        ? "text-[#E3007E] font-semibold border-b-2 border-[#E3007E]"
-        : "text-gray-700 hover:text-[#E3007E]"
-    }`;
+    return `relative px-3 py-2 transition-colors duration-200 ${isActive
+      ? "text-[#E3007E] font-semibold border-b-2 border-[#E3007E]"
+      : "text-gray-700 hover:text-[#E3007E]"
+      }`;
   };
 
   const navLinks = [
@@ -64,7 +93,7 @@ const Navbar = () => {
                 >
                   <UserCircle className="w-5 h-5 text-[#E3007E]" />
                   <span className="text-sm font-medium text-gray-700">
-                    {user.name}
+                    {username}
                   </span>
                   <ChevronDown
                     className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
@@ -73,32 +102,32 @@ const Navbar = () => {
                   />
                 </button>
 
-                {/* Dropdown Menu with Animation */}
-                {isProfileOpen && (
-                  <div className="absolute right-0 left-10 mt-2 w-40 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 transform opacity-100 scale-100 transition-all duration-200 origin-top-right">
-                    <div className="py-1">
-                      <Link
-                        to="/Profile"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
-                      >
-                        الملف الشخصي
-                      </Link>
+                  {/* Dropdown Menu with Animation */}
+                  {isProfileOpen && (
+                    <div className="absolute right-0 left-10 mt-2 w-40 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 transform opacity-100 scale-100 transition-all duration-200 origin-top-right">
+                      <div className="py-1">
                         <Link
-                        to="/Profile"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
-                      >
-                        سجل معلوماتي
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-right px-4 py-2 text-sm text-red-600 hover:bg-gray-50 transition-colors duration-150"
-                      >
-                        تسجيل الخروج
-                      </button>
+                          to="/Profile"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+                        >
+                          الملف الشخصي
+                        </Link>
+                        <Link
+                          to="/Profile"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+                        >
+                          سجل معلوماتي
+                        </Link>
+                        <button
+                          onClick={handleLogout}
+                          className="w-full text-right px-4 py-2 text-sm text-red-600 hover:bg-gray-50 transition-colors duration-150"
+                        >
+                          تسجيل الخروج
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
               ) : (
                 // Login Button
                 <Link

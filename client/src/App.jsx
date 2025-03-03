@@ -14,7 +14,7 @@ import {
   Navbar,
   Register,
 } from "./components";
-import MedicalList from "./components/MedicalList/MedicalList "
+
 
 
 function App() {
@@ -41,11 +41,11 @@ function App() {
           element: <Donations />
         },
         {
-          path: "/DonationDetails",
+          path: "/DonationDetails/:id",
           element: <DonationDetails />
         },
         {
-          path: "/Payment",
+          path: "/Payment/:id",
           element: <Payment />
         },
         {
@@ -60,10 +60,6 @@ function App() {
           path: "/Contact",
           element: <Contact />
         },
-        {
-          path: '/MedicalList',
-          element: <MedicalList/>
-        }
       ],
       errorElement: <PageNotFound />
     },
