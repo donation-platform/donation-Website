@@ -41,11 +41,11 @@ function App() {
           element: <Donations />
         },
         {
-          path: "/DonationDetails",
+          path: "/DonationDetails/:id",
           element: <DonationDetails />
         },
         {
-          path: "/Payment",
+          path: "/Payment/:id",
           element: <Payment />
         },
         {

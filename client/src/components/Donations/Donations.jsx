@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Donations.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Donations = () => {
     const [donations, setDonations] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();  // 👈 Use useNavigate here
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/requests/donations")
@@ -20,6 +22,11 @@ const Donations = () => {
     const filteredDonations = donations.filter(donation => 
         donation.toolName.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+      // 👇 Function to navigate to details page
+      const handleDetailsClick = (donationId) => {
+        navigate(`/DonationDetails/${donationId}`);
+    };
 
     return (
         <>
@@ -82,9 +89,12 @@ const Donations = () => {
                                                         </div> 
                                                     </div>
                                                     <div className="div-block-191">
-                                                        <a href={`/donation-details/${donation.id}`} className="button-6 w-button">
+                                                    <button 
+                                                            onClick={() => handleDetailsClick(donation.id)} 
+                                                            className="button-6 w-button"
+                                                        >
                                                             المزيد
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

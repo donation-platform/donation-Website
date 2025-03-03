@@ -10,7 +10,7 @@ const path = require("path");
 
 const routeRequests = require("./routes/routeRequests");
 
-                                                                                                                                
+const detailsRoutes=require("./routes/details")
 const userRoutes = require("./routes/userRoutes");
 
 const app = express();
@@ -38,7 +38,7 @@ app.use("/auth", authRoute);
 app.use("/payment", paymentRoute);
 app.use("/api/requests", routeRequests);
 app.use("/api/users", userRoutes); 
-
+app.use("/api/details", detailsRoutes);
 
 
 const PORT = 5000;
