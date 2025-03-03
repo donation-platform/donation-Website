@@ -6,7 +6,7 @@ const { sequelize } = require("./utils/database");
 const cors = require("cors");
 const authRoute = require("./routes/auth");
 const paymentRoute = require("./routes/payment");
-
+const adminRoute = require("./routes/adminRoute");
 const requestRoutes = require("../server/routes/routeRequests")
 const userRoutes = require("./routes/userRoutes");
 
@@ -34,6 +34,7 @@ app.use("/auth", authRoute);
 app.use("/payment", paymentRoute);/////////
 app.use("/api/requests", requestRoutes);
 app.use("/api/users", userRoutes); // إضافة المسار
+app.use("/api", adminRoute); 
 
 
 const PORT = 5000;

@@ -7,7 +7,7 @@ export default function Header({ toggleSidebar }) {
       <div className="flex items-center w-full max-w-xl">
         {/* Hamburger (mobile only) */}
         <button
-          className="sm:hidden ml-2 text-[#662480]"
+          className="sm:hidden ml-2 text-[#E3007E]"
           onClick={toggleSidebar}
           aria-label="فتح القائمة الجانبية"
         >

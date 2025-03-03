@@ -23,14 +23,14 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }) {
       className={`
         fixed sm:sticky top-0 left-0
         w-64 h-screen
-        bg-[#662480] text-white shadow-xl z-40
+        bg-[#E3007E] text-white shadow-xl z-40
         transform transition-transform duration-300 ease-in-out
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full sm:translate-x-0"}
       `}
       dir="rtl" 
     >
       {/* Header / Logo */}
-      <div className="p-4 sm:p-6 border-b border-[#662480] flex items-center justify-between">
+      <div className="p-4 sm:p-6 border-b border-[#E3007E] flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <div className="p-2 rounded-lg">
             <FaHome className="text-white text-xl" />
@@ -53,7 +53,7 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }) {
             <li key={item.label}>
               <Link
                 to={item.path}
-                className="flex items-center px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-white transition-all duration-300 group hover:bg-[#8A4BA8] hover:text-white"
+                className="flex items-center px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-white transition-all duration-300 group hover:bg-[#FF5BA8] hover:text-white"
                 onClick={toggleSidebar} 
               >
                 <span className="text-lg text-white group-hover:text-white ml-3">
