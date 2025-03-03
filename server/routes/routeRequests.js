@@ -1,3 +1,4 @@
+
 const express = require("express");
 const multer = require("multer");
 const { Requests } = require("../models/requests");
@@ -14,23 +15,23 @@ router.post('/submit', upload.fields([
   try { // يجب إضافة try هنا
     const newRequest = await Requests.create({
       user_id: parseInt(req.body.user_id, 10),
-      organization_name: req.body.organizationName, // ensure field names match
-      organization_address: req.body.organizationAddress,
+      organizationName: req.body.organizationName, // ensure field names match
+      organizationAddress: req.body.organizationAddress,
       phone: req.body.phone,
       email: req.body.email,
-      tool_name: req.body.toolName, // ensure field names match
-      medical_equipment: req.files["medicalEquipment"]
+      toolName: req.body.toolName, // ensure field names match
+      medicalEquipment: req.files["medicalEquipment"]
         ? req.files["medicalEquipment"][0].path
         : null,
       quantity: parseInt(req.body.quantity),
-      proof_document: req.files["proofDocument"]
+      proofDocument: req.files["proofDocument"]
         ? req.files["proofDocument"][0].path
         : null,
-      has_fundraising_license: req.body.hasFundraisingLicense === "yes",
+      hasFundraisingLicense: req.body.hasFundraisingLicense === "yes",
       agreement: req.body.agreement === "true",
       status: "pending",
       description: req.body.description,
-      estimated_cost: parseFloat(req.body.estimatedCost),
+      estimatedCost: parseFloat(req.body.estimatedCost),
       amount_raised: parseFloat(req.body.amount_raised) || 0,
     });
 

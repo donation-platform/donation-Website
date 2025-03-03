@@ -1,327 +1,753 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useParams } from 'react-router-dom';
+// import axios from 'axios';
+
+// const Payment = () => {
+//   const itemId = useParams().id;  // Get itemId from URL params
+//   const userId = useSelector((state) => state.user.id);  // Get userId from Redux store
+
+//   console.log(itemId);
+//   console.log(userId);
+
+//   // State for the payment details
+//   const [paymentDetails, setPaymentDetails] = useState({
+//     amount: '',
+//     paymentMethod: '',
+//     nameOfCard: '',
+//     numOfCard: '',
+//     month: '',
+//     year: '',
+//     code: '',
+//   });
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setPaymentDetails({
+//       ...paymentDetails,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     const paymentData = {
+//       userId,
+//       itemId,
+//       ...paymentDetails,
+//     };
+
+//     try {
+//       const response = await axios.post('http://localhost:5000/api/payment', paymentData);  // العنوان الصحيح
+//       if (response.status === 200) {
+//         alert('Payment Successful!');
+//         history.push('/success');  // Redirect to a success page or wherever you want
+//       }
+//     } catch (error) {
+//       console.error('Error submitting payment:', error);
+//       alert('Payment failed. Please try again.');
+//     }
+//   };
+
+//   return (
+//     <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
+//       <h2 className="text-2xl font-semibold mb-6 text-center text-gray-700">Payment Information</h2>
+//       <form onSubmit={handleSubmit} className="space-y-4">
+//         <div>
+//           <label htmlFor="amount" className="block text-gray-700">Amount:</label>
+//           <input
+//             type="number"
+//             id="amount"
+//             name="amount"
+//             value={paymentDetails.amount}
+//             onChange={handleChange}
+//             required
+//             className="mt-2 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="paymentMethod" className="block text-gray-700">Payment Method:</label>
+//           <input
+//             type="text"
+//             id="paymentMethod"
+//             name="paymentMethod"
+//             value={paymentDetails.paymentMethod}
+//             onChange={handleChange}
+//             required
+//             className="mt-2 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="nameOfCard" className="block text-gray-700">Name on Card:</label>
+//           <input
+//             type="text"
+//             id="nameOfCard"
+//             name="nameOfCard"
+//             value={paymentDetails.nameOfCard}
+//             onChange={handleChange}
+//             required
+//             className="mt-2 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="numOfCard" className="block text-gray-700">Card Number:</label>
+//           <input
+//             type="text"
+//             id="numOfCard"
+//             name="numOfCard"
+//             value={paymentDetails.numOfCard}
+//             onChange={handleChange}
+//             required
+//             className="mt-2 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="month" className="block text-gray-700">Expiration Month:</label>
+//           <input
+//             type="text"
+//             id="month"
+//             name="month"
+//             value={paymentDetails.month}
+//             onChange={handleChange}
+//             required
+//             className="mt-2 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="year" className="block text-gray-700">Expiration Year:</label>
+//           <input
+//             type="text"
+//             id="year"
+//             name="year"
+//             value={paymentDetails.year}
+//             onChange={handleChange}
+//             required
+//             className="mt-2 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="code" className="block text-gray-700">Security Code:</label>
+//           <input
+//             type="text"
+//             id="code"
+//             name="code"
+//             value={paymentDetails.code}
+//             onChange={handleChange}
+//             required
+//             className="mt-2 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//           />
+//         </div>
+//         <button 
+//           type="submit" 
+//           className="w-full py-2 mt-4 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 transition duration-200"
+//         >
+//           Submit Payment
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default Payment;
 
 
-export default function Payment() {
 
-    const countries = [
-        "الأردن", "السعودية", "الإمارات", "مصر", "الكويت", "البحرين",
-        "قطر", "عمان", "لبنان", "المغرب", "الجزائر", "تونس",
-        "العراق", "اليمن", "السودان", "سوريا", "ليبيا", "فلسطين"
-    ];
+// import React, { useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useParams, useNavigate } from 'react-router-dom';
+// import axios from 'axios';
+// import { CreditCard, User, Calendar, Lock, DollarSign, CreditCardIcon } from 'lucide-react';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
+// const Payment = () => {
+//   const itemId = useParams().id;
+//   const userId = useSelector((state) => state.user.id);
+//   const navigate = useNavigate();
+  
+//   const [paymentDetails, setPaymentDetails] = useState({
+//     amount: '',
+//     paymentMethod: 'credit-card',
+//     nameOfCard: '',
+//     numOfCard: '',
+//     month: '',
+//     year: '',
+//     code: '',
+//   });
+  
+//   const [errors, setErrors] = useState({});
 
-    const phonePrefixes = [
-        { code: "+962", country: "الأردن" },
-        { code: "+966", country: "السعودية" },
-        { code: "+20", country: "مصر" },
-        { code: "+971", country: "الإمارات" },
-        { code: "+965", country: "الكويت" },
-        { code: "+974", country: "قطر" },
-        { code: "+973", country: "البحرين" },
-        { code: "+968", country: "عمان" },
-        { code: "+218", country: "ليبيا" },
-        { code: "+961", country: "لبنان" },
-        { code: "+963", country: "سوريا" },
-        { code: "+964", country: "العراق" },
-        { code: "+212", country: "المغرب" },
-        { code: "+216", country: "تونس" },
-        { code: "+213", country: "الجزائر" },
-        { code: "+249", country: "السودان" },
-        { code: "+253", country: "جيبوتي" },
-        { code: "+252", country: "الصومال" },
-        { code: "+222", country: "موريتانيا" },
-        { code: "+970", country: "فلسطين" },
-        { code: "+269", country: "جزر القمر" }
-    ];
+//   const validateForm = () => {
+//     const newErrors = {};
+    
+//     if (!paymentDetails.amount) newErrors.amount = 'المبلغ مطلوب';
+//     if (!paymentDetails.nameOfCard) newErrors.nameOfCard = 'اسم البطاقة مطلوب';
+    
+//     if (!paymentDetails.numOfCard) {
+//       newErrors.numOfCard = 'رقم البطاقة مطلوب';
+//     } else if (paymentDetails.numOfCard.replace(/\s/g, '').length !== 16) {
+//       newErrors.numOfCard = 'رقم البطاقة يجب أن يكون 16 رقم';
+//     }
+    
+//     if (!paymentDetails.month) {
+//       newErrors.month = 'الشهر مطلوب';
+//     } else if (parseInt(paymentDetails.month) < 1 || parseInt(paymentDetails.month) > 12) {
+//       newErrors.month = 'الشهر غير صالح';
+//     }
+    
+//     const currentYear = new Date().getFullYear() % 100;
+//     if (!paymentDetails.year) {
+//       newErrors.year = 'السنة مطلوبة';
+//     } else if (parseInt(paymentDetails.year) < currentYear) {
+//       newErrors.year = 'تاريخ غير صالح';
+//     }
+    
+//     if (!paymentDetails.code) {
+//       newErrors.code = 'رمز الأمان مطلوب';
+//     } else if (!/^\d{3,4}$/.test(paymentDetails.code)) {
+//       newErrors.code = 'رمز الأمان يجب أن يكون 3-4 أرقام';
+//     }
+    
+//     setErrors(newErrors);
+//     return Object.keys(newErrors).length === 0;
+//   };
 
-
-    const donationOptions = {
-        sadaqahJariyah: "صدقه جاريه",
-        zakatMal: "زكاة مال",
-        ventilator: "جهاز التنفس الصناعي",
-        dialysisMachine: "جهاز غسيل الكلى",
-        glucoseMonitor: "جهاز فحص السكر",
-        bloodPressureMonitor: "جهاز فحص الضغط",
-        otherDevices: "اجهزه اخرى",
-        catheterization: "عملية قسطره",
-        openHeartSurgery: "عملية قلب مفتوح",
-        otherSurgeries: "عمليات اخرى",
-        patientBed: "سرير لمريض",
-        other: "اخرى"
-    };
-
-
-    const [Program, setProgram] = useState("");
-    const [email, setEmail] = useState("");
-    const [Country, setCountry] = useState("");
-    const [PhoneNum, setPhoneNum] = useState(0);
-    const [phonePrefix, setPhonePrefix] = useState("");
-    const [paymentMethod, setPaymentMethod] = useState("");
-    const [nameOfCard, setNameOfCard] = useState("");
-    const [numOfCard, setNumOfCard] = useState("");
-    const [month, setMonth] = useState("");
-    const [year, setYear] = useState("");
-    const [code, setCode] = useState("");
-
-
-
-
-
-
-
-    const handleSubmit = async(e) => {
-        e.preventDefault();
-        // console.log(code);
-        const body = { email:email , code:code , program:Program , Country:Country ,
-            PhoneNum:PhoneNum , phonePrefix:phonePrefix , paymentMethod:paymentMethod ,
-            nameOfCard:nameOfCard , numOfCard:numOfCard , month:month , year:year 
-         };
-        try {
-            const response = await axios.post("http://localhost:5000/payment/newPayment", body);
-            const data = response.data;
-            alert("تم الدفع بنجاح ✅ ")
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+    
+//     if (name === 'numOfCard') {
+//       const formattedValue = value
+//         .replace(/\s/g, '')
+//         .replace(/\D/g, '')
+//         .slice(0, 16)
+//         .replace(/(.{4})/g, '$1 ')
+//         .trim();
       
+//       setPaymentDetails({
+//         ...paymentDetails,
+//         [name]: formattedValue,
+//       });
+//     } else {
+//       setPaymentDetails({
+//         ...paymentDetails,
+//         [name]: value,
+//       });
+//     }
+    
+//     if (errors[name]) {
+//       setErrors({
+//         ...errors,
+//         [name]: '',
+//       });
+//     }
+//   };
 
-        }
-        catch (error) {
-            console.log("Error payment", error);
-        }
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
 
+//     if (!validateForm()) {
+//       toast.error('يرجى التحقق من صحة جميع البيانات المدخلة', {
+//         position: "top-center",
+//         autoClose: 5000,
+//         hideProgressBar: false,
+//         closeOnClick: true,
+//         pauseOnHover: true,
+//         draggable: true,
+//         rtl: true
+//       });
+//       return;
+//     }
+
+//     const paymentData = {
+//       userId,
+//       itemId,
+//       ...paymentDetails,
+//       numOfCard: paymentDetails.numOfCard.replace(/\s/g, ''),
+//     };
+
+//     try {
+//       const response = await axios.post('http://localhost:5000/api/payment', paymentData);
+//       if (response.status === 200) {
+//         toast.success('تمت عملية الدفع بنجاح!', {
+//           position: "top-center",
+//           autoClose: 2000,
+//           hideProgressBar: false,
+//           closeOnClick: true,
+//           pauseOnHover: true,
+//           draggable: true,
+//           rtl: true,
+//           onClose: () => {
+//             navigate(`/details/${itemId}`);
+//           }
+//         });
+//       }
+//     } catch (error) {
+//       console.error('Error submitting payment:', error);
+//       toast.error('فشلت عملية الدفع. يرجى المحاولة مرة أخرى.', {
+//         position: "top-center",
+//         autoClose: 5000,
+//         hideProgressBar: false,
+//         closeOnClick: true,
+//         pauseOnHover: true,
+//         draggable: true,
+//         rtl: true
+//       });
+//     }
+//   };
+
+//   return (
+//     <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-xl border border-gray-200">
+//       {/* إضافة حاوية Toastify */}
+//       <ToastContainer />
+      
+//       <div className="flex justify-center mb-6">
+//         <div className="p-3 bg-blue-100 rounded-full">
+//           <CreditCard className="w-10 h-10 text-blue-600" />
+//         </div>
+//       </div>
+//       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">معلومات الدفع</h2>
+      
+//       <form onSubmit={handleSubmit} className="space-y-5" dir="rtl">
+//         <div className="relative">
+//           <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+//             <DollarSign className="w-4 h-4 ml-1" />
+//             <span>المبلغ:</span>
+//           </label>
+//           <input
+//             type="number"
+//             id="amount"
+//             name="amount"
+//             value={paymentDetails.amount}
+//             onChange={handleChange}
+//             className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.amount ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+//           />
+//           {errors.amount && <p className="text-red-500 text-xs mt-1">{errors.amount}</p>}
+//         </div>
+        
+//         <div className="relative">
+//           <label htmlFor="paymentMethod" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+//             <CreditCardIcon className="w-4 h-4 ml-1" />
+//             <span>طريقة الدفع:</span>
+//           </label>
+//           <select
+//             id="paymentMethod"
+//             name="paymentMethod"
+//             value={paymentDetails.paymentMethod}
+//             onChange={handleChange}
+//             className="mt-1 block w-full px-3 py-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//           >
+//             <option value="credit-card">بطاقة ائتمان</option>
+//             <option value="debit-card">بطاقة خصم</option>
+//             <option value="prepaid-card">بطاقة مدفوعة مسبقاً</option>
+//           </select>
+//         </div>
+        
+//         <div className="relative">
+//           <label htmlFor="nameOfCard" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+//             <User className="w-4 h-4 ml-1" />
+//             <span>الاسم على البطاقة:</span>
+//           </label>
+//           <input
+//             type="text"
+//             id="nameOfCard"
+//             name="nameOfCard"
+//             value={paymentDetails.nameOfCard}
+//             onChange={handleChange}
+//             className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.nameOfCard ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+//           />
+//           {errors.nameOfCard && <p className="text-red-500 text-xs mt-1">{errors.nameOfCard}</p>}
+//         </div>
+        
+//         <div className="relative">
+//           <label htmlFor="numOfCard" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+//             <CreditCard className="w-4 h-4 ml-1" />
+//             <span>رقم البطاقة:</span>
+//           </label>
+//           <input
+//             type="text"
+//             id="numOfCard"
+//             name="numOfCard"
+//             value={paymentDetails.numOfCard}
+//             onChange={handleChange}
+//             placeholder="XXXX XXXX XXXX XXXX"
+//             className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.numOfCard ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+//           />
+//           {errors.numOfCard && <p className="text-red-500 text-xs mt-1">{errors.numOfCard}</p>}
+//         </div>
+        
+//         <div className="flex space-x-4 space-x-reverse">
+//           <div className="w-1/2">
+//             <label htmlFor="month" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+//               <Calendar className="w-4 h-4 ml-1" />
+//               <span>شهر:</span>
+//             </label>
+//             <input
+//               type="text"
+//               id="month"
+//               name="month"
+//               value={paymentDetails.month}
+//               onChange={handleChange}
+//               placeholder="MM"
+//               maxLength="2"
+//               className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.month ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+//             />
+//             {errors.month && <p className="text-red-500 text-xs mt-1">{errors.month}</p>}
+//           </div>
+//           <div className="w-1/2">
+//             <label htmlFor="year" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+//               <Calendar className="w-4 h-4 ml-1" />
+//               <span>سنة:</span>
+//             </label>
+//             <input
+//               type="text"
+//               id="year"
+//               name="year"
+//               value={paymentDetails.year}
+//               onChange={handleChange}
+//               placeholder="YY"
+//               maxLength="2"
+//               className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.year ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+//             />
+//             {errors.year && <p className="text-red-500 text-xs mt-1">{errors.year}</p>}
+//           </div>
+//         </div>
+        
+//         <div className="relative">
+//           <label htmlFor="code" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+//             <Lock className="w-4 h-4 ml-1" />
+//             <span>رمز الأمان (CVV):</span>
+//           </label>
+//           <input
+//             type="text"
+//             id="code"
+//             name="code"
+//             value={paymentDetails.code}
+//             onChange={handleChange}
+//             placeholder="CVV"
+//             maxLength="4"
+//             className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.code ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+//           />
+//           {errors.code && <p className="text-red-500 text-xs mt-1">{errors.code}</p>}
+//         </div>
+        
+//         <div className="mt-8">
+//           <button 
+//             type="submit" 
+//             className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold rounded-lg shadow-lg transition duration-200 transform hover:scale-105 flex items-center justify-center"
+//           >
+//             <CreditCard className="w-5 h-5 ml-2" />
+//             إتمام عملية الدفع
+//           </button>
+//         </div>
+        
+//         <div className="flex items-center justify-center mt-4 text-sm text-gray-600">
+//           <Lock className="w-4 h-4 ml-1" />
+//           <span>جميع المعاملات آمنة ومشفرة</span>
+//         </div>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default Payment;
+
+
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { CreditCard, User, Calendar, Lock, DollarSign, CreditCardIcon } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const Payment = () => {
+  const itemId = useParams().id;
+  const userId = useSelector((state) => state.user.id);
+  const navigate = useNavigate();
+  
+  const [paymentDetails, setPaymentDetails] = useState({
+    amount: '',
+    paymentMethod: 'credit-card',
+    nameOfCard: '',
+    numOfCard: '',
+    month: '',
+    year: '',
+    code: '',
+  });
+  
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!paymentDetails.amount) newErrors.amount = 'المبلغ مطلوب';
+    if (!paymentDetails.nameOfCard) newErrors.nameOfCard = 'اسم البطاقة مطلوب';
+    
+    if (!paymentDetails.numOfCard) {
+      newErrors.numOfCard = 'رقم البطاقة مطلوب';
+    } else if (paymentDetails.numOfCard.replace(/\s/g, '').length !== 16) {
+      newErrors.numOfCard = 'رقم البطاقة يجب أن يكون 16 رقم';
+    }
+    
+    if (!paymentDetails.month) {
+      newErrors.month = 'الشهر مطلوب';
+    } else if (parseInt(paymentDetails.month) < 1 || parseInt(paymentDetails.month) > 12) {
+      newErrors.month = 'الشهر غير صالح';
+    }
+    
+    const currentYear = new Date().getFullYear() % 100;
+    if (!paymentDetails.year) {
+      newErrors.year = 'السنة مطلوبة';
+    } else if (parseInt(paymentDetails.year) < currentYear) {
+      newErrors.year = 'تاريخ غير صالح';
+    }
+    
+    if (!paymentDetails.code) {
+      newErrors.code = 'رمز الأمان مطلوب';
+    } else if (!/^\d{3,4}$/.test(paymentDetails.code)) {
+      newErrors.code = 'رمز الأمان يجب أن يكون 3-4 أرقام';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    
+    if (name === 'numOfCard') {
+      const formattedValue = value
+        .replace(/\s/g, '')
+        .replace(/\D/g, '')
+        .slice(0, 16)
+        .replace(/(.{4})/g, '$1 ')
+        .trim();
+      
+      setPaymentDetails({
+        ...paymentDetails,
+        [name]: formattedValue,
+      });
+    } else {
+      setPaymentDetails({
+        ...paymentDetails,
+        [name]: value,
+      });
+    }
+    
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: '',
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      toast.error('يرجى التحقق من صحة جميع البيانات المدخلة', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        rtl: true
+      });
+      return;
     }
 
+    const paymentData = {
+      userId,
+      itemId,
+      ...paymentDetails,
+      numOfCard: paymentDetails.numOfCard.replace(/\s/g, ''),
+    };
 
+    try {
+      const response = await axios.post('http://localhost:5000/api/payment', paymentData);
+      if (response.status === 200) {
+        toast.success('تمت عملية الدفع بنجاح!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          rtl: true,
+          onClose: () => {
+            navigate(`/details/${itemId}`);
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting payment:', error);
+      toast.error('فشلت عملية الدفع. يرجى المحاولة مرة أخرى.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        rtl: true
+      });
+    }
+  };
 
+  return (
+    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-xl border border-gray-200">
+      {/* إضافة حاوية Toastify */}
+      <ToastContainer />
+      
+      <div className="flex justify-center mb-6">
+        <div className="p-3 bg-blue-100 rounded-full">
+          <CreditCard className="w-10 h-10 text-blue-600" />
+        </div>
+      </div>
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">معلومات الدفع</h2>
+      
+      <form onSubmit={handleSubmit} className="space-y-5" dir="rtl">
+        <div className="relative">
+          <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+            <DollarSign className="w-4 h-4 ml-1" />
+            <span>المبلغ:</span>
+          </label>
+          <input
+            type="number"
+            id="amount"
+            name="amount"
+            value={paymentDetails.amount}
+            onChange={handleChange}
+            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.amount ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+          />
+          {errors.amount && <p className="text-red-500 text-xs mt-1">{errors.amount}</p>}
+        </div>
+        
+        <div className="relative">
+          <label htmlFor="paymentMethod" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+            <CreditCardIcon className="w-4 h-4 ml-1" />
+            <span>طريقة الدفع:</span>
+          </label>
+          <select
+            id="paymentMethod"
+            name="paymentMethod"
+            value={paymentDetails.paymentMethod}
+            onChange={handleChange}
+            className="mt-1 block w-full px-3 py-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            <option value="credit-card">بطاقة ائتمان</option>
+            <option value="debit-card">بطاقة خصم</option>
+            <option value="prepaid-card">بطاقة مدفوعة مسبقاً</option>
+          </select>
+        </div>
+        
+        <div className="relative">
+          <label htmlFor="nameOfCard" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+            <User className="w-4 h-4 ml-1" />
+            <span>الاسم على البطاقة:</span>
+          </label>
+          <input
+            type="text"
+            id="nameOfCard"
+            name="nameOfCard"
+            value={paymentDetails.nameOfCard}
+            onChange={handleChange}
+            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.nameOfCard ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+          />
+          {errors.nameOfCard && <p className="text-red-500 text-xs mt-1">{errors.nameOfCard}</p>}
+        </div>
+        
+        <div className="relative">
+          <label htmlFor="numOfCard" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+            <CreditCard className="w-4 h-4 ml-1" />
+            <span>رقم البطاقة:</span>
+          </label>
+          <input
+            type="text"
+            id="numOfCard"
+            name="numOfCard"
+            value={paymentDetails.numOfCard}
+            onChange={handleChange}
+            placeholder="XXXX XXXX XXXX XXXX"
+            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.numOfCard ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+          />
+          {errors.numOfCard && <p className="text-red-500 text-xs mt-1">{errors.numOfCard}</p>}
+        </div>
+        
+        <div className="flex space-x-4 space-x-reverse">
+          <div className="w-1/2">
+            <label htmlFor="month" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+              <Calendar className="w-4 h-4 ml-1" />
+              <span>شهر:</span>
+            </label>
+            <input
+              type="text"
+              id="month"
+              name="month"
+              value={paymentDetails.month}
+              onChange={handleChange}
+              placeholder="MM"
+              maxLength="2"
+              className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.month ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+            />
+            {errors.month && <p className="text-red-500 text-xs mt-1">{errors.month}</p>}
+          </div>
+          <div className="w-1/2">
+            <label htmlFor="year" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+              <Calendar className="w-4 h-4 ml-1" />
+              <span>سنة:</span>
+            </label>
+            <input
+              type="text"
+              id="year"
+              name="year"
+              value={paymentDetails.year}
+              onChange={handleChange}
+              placeholder="YY"
+              maxLength="2"
+              className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.year ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+            />
+            {errors.year && <p className="text-red-500 text-xs mt-1">{errors.year}</p>}
+          </div>
+        </div>
+        
+        <div className="relative">
+          <label htmlFor="code" className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+            <Lock className="w-4 h-4 ml-1" />
+            <span>رمز الأمان (CVV):</span>
+          </label>
+          <input
+            type="text"
+            id="code"
+            name="code"
+            value={paymentDetails.code}
+            onChange={handleChange}
+            placeholder="CVV"
+            maxLength="4"
+            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.code ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+          />
+          {errors.code && <p className="text-red-500 text-xs mt-1">{errors.code}</p>}
+        </div>
+        
+        <div className="mt-8">
+          <button 
+            type="submit" 
+            className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold rounded-lg shadow-lg transition duration-200 transform hover:scale-105 flex items-center justify-center"
+          >
+            <CreditCard className="w-5 h-5 ml-2" />
+            إتمام عملية الدفع
+          </button>
+        </div>
+        
+        <div className="flex items-center justify-center mt-4 text-sm text-gray-600">
+          <Lock className="w-4 h-4 ml-1" />
+          <span>جميع المعاملات آمنة ومشفرة</span>
+        </div>
+      </form>
+    </div>
+  );
+};
 
-
-    return (
-<>
-
-        <form onSubmit={handleSubmit}>
-
-            <div className="min-h-screen flex items-center justify-center bg-gray-200 p-5 rtl">
-                <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6 text-gray-700">
-
-                    <div className="w-full flex justify-center mb-5">
-                        <div className="bg-indigo-500 text-white rounded-full w-20 h-20 flex items-center justify-center shadow-lg">
-                            <i className="mdi mdi-credit-card-outline text-3xl" />
-                        </div>
-                    </div>
-
-
-                    <h1 className="text-center text-xl font-bold mb-6">معلومات الدفع الآمنة</h1>
-
-
-                    <div className="mb-3">
-                        <label className="font-bold text-sm mb-2 ml-1">برنامج التبرع</label>
-                        <select
-                            className="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer"
-                            name="selectedProgram"
-                            // value={Program}
-                            onChange={(e) => setProgram(e.target.value)}
-                        // onChange={handleSelectChange}
-                        >
-                            {Object.entries(donationOptions).map(([key, value]) => (
-                                <option key={key} value={value}>{value}</option>
-                            ))}
-                        </select>
-
-                    </div>
-
-
-                    <div className="mb-3">
-                        <label className="font-bold text-sm mb-2 ml-1">البريد الإلكتروني</label>
-                        <input
-                            className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-                            type="email"
-                            name="email"
-                            placeholder="example@email.com"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        // onChange={handleInputChange}
-                        />
-                    </div>
-
-
-
-
-                    <div className="mb-3">
-                        <label className="font-bold text-sm mb-2 ml-1">الدوله</label>
-                        <select
-                            className="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer"
-                            name="selectedCountry"
-                            // value={Country}
-                            onChange={(e) => setCountry(e.target.value)}
-                        // onChange={handleSelectChange}
-                        >
-                            <option value="">أختر دولتك</option>
-                            {countries.map((country) => (
-                                <option key={country} value={country}>{country}</option>
-                            ))}
-                        </select>
-                    </div>
-
-
-
-
-                    <div className="mb-3">
-                        <label className="font-bold text-sm mb-2 ml-1">رقم الهاتف</label>
-                        <div className="flex">
-                            <select
-                                className="form-select px-3 py-2 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer"
-                                name="phonePrefix"
-                                // value={phonePrefix}
-                                onChange={(e) => setPhonePrefix(e.target.value)}
-                            // onChange={handleSelectChange}
-                            >
-                                <option value="">مفتاح الدولة</option>
-                                {phonePrefixes.map((prefix) => (
-                                    <option key={prefix.code} value={prefix.code}>
-                                        {prefix.code} - {prefix.country}
-                                    </option>
-                                ))}
-                            </select>
-
-                            <input
-                                type="text"
-                                name="fonNum"
-                                className="w-full px-3 py-2 ml-2 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-                                placeholder="رقم الهاتف"
-                                value={PhoneNum}
-                                onChange={(e) => setPhoneNum(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
-
-
-
-                    <div className="mb-3">
-                        <label className="flex items-center cursor-pointer">
-                            <input
-                                type="radio"
-                                name="paymentMethod"
-                                value="بطاقه ائتمانيه"
-                                checked={paymentMethod === 'بطاقه ائتمانيه'}
-                                onChange={(e) => setPaymentMethod(e.target.value)}
-                            // onChange={handleInputChange}
-                            />
-                            <img src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png" className="h-8 ml-3" alt="بطاقة ائتمان" />
-                        </label>
-                        <label className="flex items-center cursor-pointer">
-                            <input
-                                type="radio"
-                                name="paymentMethod"
-                                value="باي بال"
-                                checked={paymentMethod === 'باي بال'}
-                                onChange={(e) => setPaymentMethod(e.target.value)}
-                            // onChange={handleInputChange}
-                            />
-                            <img src="https://www.sketchappsources.com/resources/source-image/PayPalCard.png" className="h-8 ml-3" alt="باي بال" />
-                        </label>
-                        <label className="flex items-center cursor-pointer">
-                            <input
-                                type="radio"
-                                name="paymentMethod"
-                                value="نقدا"
-                                checked={paymentMethod === 'نقدا'}
-                                onChange={(e) => setPaymentMethod(e.target.value)}
-                            // onChange={handleInputChange}
-                            />
-                            $$ نقدا
-                        </label>
-                    </div>
-
-
-
-
-
-                    <label className="block font-bold text-sm mb-1">الاسم على البطاقة</label>
-                    <input
-                        type="text"
-                        name="nameOfCard"
-                        placeholder="abdullah ghanem"
-                        className="w-full border-2 border-gray-200 rounded-md p-2 mb-3 focus:border-indigo-500"
-                        value={nameOfCard}
-                        onChange={(e) => setNameOfCard(e.target.value)}
-                    // onChange={handleInputChange}
-                    />
-
-
-
-                    <label className="block font-bold text-sm mb-1">رقم البطاقة</label>
-                    <input
-                        type="text"
-                        name="numOfCard"
-                        placeholder="0000 0000 0000 0000"
-                        className="w-full border-2 border-gray-200 rounded-md p-2 mb-3 focus:border-indigo-500"
-                        value={numOfCard}
-                        onChange={(e) => setNumOfCard(e.target.value)}
-                    // onChange={handleInputChange}
-                    />
-
-
-
-                    <div className="flex gap-3">
-                        <div className="w-1/2">
-                            <label className="block font-bold text-sm mb-1">تاريخ الانتهاء</label>
-                            <select
-                                name="expiryMonth"
-                                className="w-full border-2 border-gray-200 rounded-md p-2 focus:border-indigo-500"
-                                // value={month}
-                                onChange={(e) => setMonth(e.target.value)}
-                            // onChange={handleSelectChange}
-                            >
-                                {[...Array(12)].map((_, i) => (
-                                    <option key={i} value={i + 1}>
-                                        {String(i + 1).padStart(2, '0')}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-
-                        <div className="w-1/2">
-                            <label className="block font-bold text-sm mb-1">السنة</label>
-                            <select
-                                name="expiryYear"
-                                className="w-full border-2 border-gray-200 rounded-md p-2 focus:border-indigo-500"
-                                // value={year}
-                                onChange={(e) => setYear(e.target.value)}
-                            // onChange={handleSelectChange}
-                            >
-                                {[...Array(10)].map((_, i) => (
-                                    <option key={i} value={2025 + i}>
-                                        {2025 + i}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-
-
-
-                    <label className="block font-bold text-sm mt-3 mb-1">رمز الأمان</label>
-                    <input
-                        type="text"
-                        name="securityCode"
-                        placeholder="000"
-                        className="w-1/2 border-2 border-gray-200 rounded-md p-2 mb-3 focus:border-indigo-500"
-                        value={code}
-                        onChange={(e) => setCode(e.target.value)}
-                    />
-
-
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-500 text-white py-3 rounded-md mt-6"
-                    >
-                        دفع الآن
-                    </button>
-                </div>
-            </div>
-        </form>
-
-        </>
-    );
-}
+export default Payment;
