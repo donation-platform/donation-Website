@@ -13,7 +13,7 @@ const Contact = () => {
     name: "",
     email: "",
     message: "",
-    subject: "", // إضافة حقل الموضوع
+    subject: "",
   });
 
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -33,33 +33,36 @@ const Contact = () => {
     { icon: "📍", title: "العنوان", value: "عمان , الاردن" },
   ];
 
-  useEffect(() => {
-    if (userId) {
-      fetchUserData();
-    }
-  }, [userId]);
+  // useEffect(() => {
+  //   if (userId) {
+
+  //     console.log("User ID from Redux:", userId);
+
+  //     fetchUserData();
+  //   }
+  // }, [userId]);
 
   // ✅ جلب بيانات المستخدم تلقائيًا عند تحميل الصفحة
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/users/profile/${userId}`
-      );
-      if (response.data.user) {
-        setFormData({
-          name: response.data.user.name || "",
-          email: response.data.user.email || "",
-          message: "",
-          subject: "",
-        });
-      }
-    } catch (err) {
-      console.error("Error fetching user data:", err);
-      setError("فشل في تحميل بيانات المستخدم.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const fetchUserData = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:5000/api/users/profile/${userId}`
+  //     );
+  //     if (response.data.user) {
+  //       setFormData({
+  //         name: response.data.user.name || "",
+  //         email: response.data.user.email || "",
+  //         message: "",
+  //         subject: "",
+  //       });
+  //     }
+  //   } catch (err) {
+  //     console.error("Error fetching user data:", err);
+  //     setError("فشل في تحميل بيانات المستخدم.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -121,31 +124,31 @@ const Contact = () => {
     }
   };
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#662480] to-[#E3007E]">
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#E3007E] mx-auto"></div>
-          <p className="text-center mt-4 text-gray-700">جاري التحميل...</p>
-          <p className="text-center mt-4 text-gray-700">سجل دخولك للتواصل معنا</p>
-        </div>
-      </div>
-    );
+  // if (loading)
+  //   return (
+  //     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#662480] to-[#E3007E]">
+  //       <div className="bg-white p-6 rounded-lg shadow-lg">
+  //         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#E3007E] mx-auto"></div>
+  //         <p className="text-center mt-4 text-gray-700">جاري التحميل...</p>
+  //         <p className="text-center mt-4 text-gray-700">سجل دخولك للتواصل معنا</p>
+  //       </div>
+  //     </div>
+  //   );
 
-  if (error)
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#662480] to-[#E3007E]">
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <p className="text-red-600 text-center">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="mt-4 bg-[#E3007E] text-white py-2 px-4 rounded hover:bg-[#662480] transition duration-300 block mx-auto"
-          >
-            إعادة المحاولة
-          </button>
-        </div>
-      </div>
-    );
+  // if (error)
+  //   return (
+  //     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#662480] to-[#E3007E]">
+  //       <div className="bg-white p-6 rounded-lg shadow-lg">
+  //         <p className="text-red-600 text-center">{error}</p>
+  //         <button
+  //           onClick={() => window.location.reload()}
+  //           className="mt-4 bg-[#E3007E] text-white py-2 px-4 rounded hover:bg-[#662480] transition duration-300 block mx-auto"
+  //         >
+  //           إعادة المحاولة
+  //         </button>
+  //       </div>
+  //     </div>
+  //   );
 
   return (
     <div className="bg-gray-50 min-h-screen font-sans" dir="rtl">
@@ -252,7 +255,7 @@ const Contact = () => {
                           type="text"
                           name="name"
                           value={formData.name}
-                          disabled
+                          onChange={handleChange}
                           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none bg-gray-100 text-gray-600"
                         />
                       </div>
@@ -264,7 +267,7 @@ const Contact = () => {
                           type="email"
                           name="email"
                           value={formData.email}
-                          disabled
+                          onChange={handleChange}
                           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none bg-gray-100 text-gray-600"
                         />
                       </div>

@@ -29,17 +29,15 @@ const Navbar = () => {
     }, );
 
   const fetchUserData = async () => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-  
+    console.log(user.id)
     try {
-      const response = await axios.get(`http://localhost:5000/api/users/profile/${user.id}`, { signal });
+      const response = await axios.get(`http://localhost:5000/api/users/profile/${user.id}`);
+      
+      console.log("User Data:", response.data.name);
   
-      console.log("User Data:", response.data);
-  
-      if (response.data.user) {
-        setUsername( response.data.user.name);
-      }
+     
+        setUsername( response.data.name);
+    
     } catch (err) {
       if (err.name !== "AbortError") {
         console.error(err);

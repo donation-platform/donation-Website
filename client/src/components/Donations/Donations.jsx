@@ -45,7 +45,7 @@ const Donations = () => {
                 </video>
                 <div className="herooverl"></div>
                 <div className="heroContent">
-                    <h1 className="herosubtitle">التبرع هو باب للخير، كن جزءًا من رحلة العطاءمع   <span>  أُفُق الخير.</span></h1>
+                    <h1 className="herosubtitle">التبرع هو باب للخير، كن جزءًا من رحلة العطاء مع   <span>  أُفُق الخير.</span></h1>
                 </div>
             </div>
 

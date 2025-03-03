@@ -4,9 +4,9 @@ const { Requests } = require("../models/requests");
 const getRequests = async (req, res) => {
     try {
         const requests = await Requests.findAll({
-            attributes: ["organizationName", "toolName", "medicalEquipment","status","id"],
+            attributes: ["organizationName", "toolName", "medicalEquipment","status" ,"id"],
             order: [["createdAt", "DESC"]],
-           
+
         });
 
         res.json(requests);

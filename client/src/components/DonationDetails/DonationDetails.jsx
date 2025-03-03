@@ -81,8 +81,8 @@ export default function DonationDetails() {
                                 ></div>
                             </div>
                             <div className="flex justify-between text-gray-700">
-                                <p>المبلغ المطلوب: {request.estimatedCost} ريال</p>
-                                <p>المبلغ المجموع: {request.amount_raised} ريال</p>
+                                <p>المبلغ المطلوب: {request.estimatedCost} دينار اردني</p>
+                                <p>المبلغ المجموع: {request.amount_raised} دينار اردني</p>
                             </div>
                         </div>
 

@@ -5,13 +5,12 @@ const cookieParser = require("cookie-parser");
 const { sequelize } = require("./utils/database");
 const cors = require("cors");
 const authRoute = require("./routes/auth");
-const paymentRoute = require("./routes/payment");
 const path = require("path"); 
 
 const routeRequests = require("./routes/routeRequests");
-
-const detailsRoutes=require("./routes/details")
+const detailsRoutes = require("./routes/details");
 const userRoutes = require("./routes/userRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");  // Import payment routes
 
 const app = express();
 
@@ -28,21 +27,20 @@ app.use(
   })
 );
 
-
+// Sync database
 sequelize
-.sync()
+  .sync()
   .then(() => console.log("Database synced"))
   .catch((err) => console.log("Error syncing database:", err));
 
+// Use routes
 app.use("/auth", authRoute);
-app.use("/payment", paymentRoute);
 app.use("/api/requests", routeRequests);
-app.use("/api/users", userRoutes); 
+app.use("/api/users", userRoutes);
 app.use("/api/details", detailsRoutes);
-
+app.use("/api/payment", paymentRoutes);  // Add the payment route
 
 const PORT = 5000;
 app.listen(PORT, async () => {
   console.log(`App is listening on port ${PORT}`);
-
 });
