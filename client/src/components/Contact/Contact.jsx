@@ -126,6 +126,7 @@ const Contact = () => {
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#E3007E] mx-auto"></div>
           <p className="text-center mt-4 text-gray-700">جاري التحميل...</p>
+          <p className="text-center mt-4 text-gray-700">سجل دخولك للتواصل معنا</p>
         </div>
       </div>
     );

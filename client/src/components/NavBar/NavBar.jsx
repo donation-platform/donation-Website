@@ -1,16 +1,19 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux"; // Import Redux hooks
 import { clearUser } from "../../store/userSlice"; // Import clearUser action
 import logo from "../images/logo.png";
 import { UserCircle, ChevronDown, Menu, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false); // State for profile dropdown
+  const [username, setUsername]= useState("");
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Get user from Redux store
   const user = useSelector((state) => state.user);
@@ -19,21 +22,36 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-const handleLogout = async () => {
+    useEffect(() => {
+      if (user.id) {
+        fetchUserData();
+      }
+    }, );
+
+  const fetchUserData = async () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+  
     try {
-        // Sending a request to the server to log out (clear cookies/session)
-        await axios.post("http://localhost:5000/auth/logout", {}, { withCredentials: true });
-
-        // Clear user from Redux store
-        dispatch(clearUser()); 
-
-        // Close the profile dropdown
-        setIsProfileOpen(false); 
-    } catch (error) {
-        console.error("Logout failed:", error);
+      const response = await axios.get(`http://localhost:5000/api/users/profile/${user.id}`, { signal });
+  
+      console.log("User Data:", response.data);
+  
+      if (response.data.user) {
+        setUsername( response.data.user.name);
+      }
+    } catch (err) {
+      if (err.name !== "AbortError") {
+        console.error(err);
+      }
     }
-};
+  };
 
+  const handleLogout = () => {
+    dispatch(clearUser()); // Clear user from Redux store
+    setIsProfileOpen(false); // Close the dropdown
+    navigate("/");
+  };
 
   const getLinkClass = (path) => {
     const isActive = location.pathname === path;
@@ -69,19 +87,20 @@ const handleLogout = async () => {
               {user.id ? (
                 // Profile Dropdown 
                 <div className="relative">
-                  <button
-                    onClick={() => setIsProfileOpen(!isProfileOpen)}
-                    className="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-full transition-colors duration-200 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#E3007E] focus:ring-opacity-50"
-                  >
-                    <UserCircle className="w-5 h-5 text-[#E3007E]" />
-                    <span className="text-sm font-medium text-gray-700">
-                      {user.name}
-                    </span>
-                    <ChevronDown
-                      className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isProfileOpen ? "rotate-180" : ""
-                        }`}
-                    />
-                  </button>
+                <button
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  className="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-full transition-colors duration-200 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#E3007E] focus:ring-opacity-50"
+                >
+                  <UserCircle className="w-5 h-5 text-[#E3007E]" />
+                  <span className="text-sm font-medium text-gray-700">
+                    {username}
+                  </span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
+                        isProfileOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
 
                   {/* Dropdown Menu with Animation */}
                   {isProfileOpen && (
