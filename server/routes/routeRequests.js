@@ -4,11 +4,11 @@ const { Requests } = require("../models/requests");
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-router.post('/submit', upload.fields([
-  { name: 'medicalEquipment'},
-  { name: 'proofDocument' }
-]), async (req, res) => {
-
+router.post(
+  "/submit",
+  upload.fields([{ name: "medicalEquipment" }, { name: "proofDocument" }]),
+  async (req, res) => {
+    try {
       const newRequest = await Requests.create({
         user_id: parseInt(req.body.user_id, 10),
         organization_name: req.body.organizationName, // ensure field names match
