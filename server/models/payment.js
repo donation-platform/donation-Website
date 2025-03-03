@@ -1,11 +1,6 @@
 
-
-
-
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/database").sequelize;
-
-
 
 const Payment = sequelize.define('Payment', {
     id: {
@@ -18,7 +13,7 @@ const Payment = sequelize.define('Payment', {
         allowNull: false,
     },
     itemId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     amount: {
