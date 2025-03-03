@@ -40,7 +40,12 @@ export default function Login() {
 
       if (response.status === 200) {
         dispatch(setUser({ id: data.userId, email: data.email }));
-        navigate("/");
+
+        if (loginForm.email === "admin@gmail.com") {
+          navigate("/AdminDash"); 
+        } else {
+          navigate("/"); 
+        }
       }
     } catch (error) {
       console.error("خطأ أثناء تسجيل الدخول:", error);
