@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from '@react-oauth/google';
 
 export default function Register() {
     const navigate = useNavigate();
+    const [error, setError] = useState(""); // Track error messages
     const [registerForm, setRegisterForm] = useState({
         name: "",
         email: "",
@@ -33,14 +35,41 @@ export default function Register() {
             });
 
             console.log(response);
-            navigate("/login"); // توجيه المستخدم إلى صفحة تسجيل الدخول بعد التسجيل الناجح
+            navigate("/login"); // Navigate to login page after successful registration
         } catch (error) {
+            // Handle registration errors
             if (error.response && error.response.status === 409) {
-                console.log(error.response.data.message);
+                setError(error.response.data.message); // User already exists
             } else {
-                console.error("حدث خطأ أثناء التسجيل:", error);
+                setError("حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.");
             }
         }
+    }
+
+    const handleGoogleRegisterSuccess = async (response) => {
+        const { credential } = response;
+
+        try {
+            const res = await axios.post("http://localhost:5000/auth/google-register",
+                { token: credential },
+                { headers: { 'Content-Type': 'application/json' } }
+            );
+
+            const data = res.data;
+            console.log("Google Registration successful:", data);
+
+            // Redirect to the login page after successful Google registration
+            navigate("/login");
+
+        } catch (error) {
+            console.error("Error during Google registration:", error);
+            setError("حدث خطأ أثناء التسجيل عبر جوجل. يرجى المحاولة مرة أخرى.");
+        }
+    }
+
+    const handleGoogleRegisterFailure = (error) => {
+        console.error("Google Registration Failure:", error);
+        setError("فشل التسجيل عبر جوجل. حاول مرة أخرى أو استخدم طريقة أخرى.");
     }
 
     return (
@@ -51,6 +80,13 @@ export default function Register() {
                         <h1 className="text-3xl font-extrabold text-gray-900">إنشاء حساب جديد</h1>
                         <p className="mt-2 text-sm text-gray-600">سجل الآن للبدء في استخدام منصتنا</p>
                     </div>
+
+                    {/* Error Message Display */}
+                    {error && (
+                        <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm">
+                            {error}
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit} className="mt-8 space-y-6">
                         <div className="space-y-4">
@@ -157,6 +193,21 @@ export default function Register() {
                                 تسجيل الدخول
                             </Link>
                         </p>
+                    </div>
+
+                    <div className="text-center mt-6">
+                        <p className="text-sm text-gray-600">
+                            أو يمكنك التسجيل باستخدام{" "}
+                            <span className="font-medium text-indigo-600 hover:text-indigo-500">جوجل</span>
+                        </p>
+                        <GoogleLogin
+                            onSuccess={handleGoogleRegisterSuccess}
+                            onError={handleGoogleRegisterFailure}
+                            useOneTap
+                            shape="rectangular"
+                            theme="filled_blue"
+                            size="large"
+                        />
                     </div>
                 </div>
             </div>
