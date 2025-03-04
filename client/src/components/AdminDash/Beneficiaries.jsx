@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, CheckCircle, XCircle, Search, FileText, User } from 'lucide-react';
+import { Eye, CheckCircle, XCircle, Search, FileText, User, Filter } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +13,7 @@ const Beneficiaries = () => {
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(null);
   const [loading, setLoading] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -53,9 +54,10 @@ const Beneficiaries = () => {
 
   const filteredBeneficiaries = beneficiaries.filter(
     (beneficiary) =>
-      beneficiary.organizationName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (beneficiary.organizationName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       beneficiary.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      beneficiary.description.toLowerCase().includes(searchQuery.toLowerCase())
+      beneficiary.description.toLowerCase().includes(searchQuery.toLowerCase())) &&
+      (statusFilter === 'all' || beneficiary.status === statusFilter)
   );
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -77,11 +79,24 @@ const Beneficiaries = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
+        <div className="relative">
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="pr-9 pl-4 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full shadow-sm appearance-none text-gray-500"
+            >
+              <option value="all">جميع الحالات</option>
+              <option value="approved">تمت الموافقة</option>
+              <option value="pending">قيد الانتظار</option>
+              <option value="rejected">مرفوض</option>
+            </select>
+            <Filter size={16} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
+          </div>
           <div className="relative">
             <input
               type="text"
               placeholder="بحث في المستفيدين..."
-              className="pr-9 pl-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full"
+              className="pr-9 pl-4 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full shadow-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
