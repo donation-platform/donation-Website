@@ -116,12 +116,7 @@ const Navbar = () => {
                         >
                           الملف الشخصي
                         </Link>
-                        <Link
-                          to="/Profile"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
-                        >
-                          سجل معلوماتي
-                        </Link>
+                        
                         <button
                           onClick={handleLogout}
                           className="w-full text-right px-4 py-2 text-sm text-red-600 hover:bg-gray-50 transition-colors duration-150"

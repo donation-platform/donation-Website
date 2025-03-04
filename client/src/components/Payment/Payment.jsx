@@ -191,8 +191,8 @@ const Payment = () => {
             className="mt-1 block w-full px-3 py-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E3007E] focus:border-transparent"
           >
             <option value="credit-card">بطاقة ائتمان</option>
-            <option value="debit-card">بطاقة خصم</option>
-            <option value="prepaid-card">بطاقة مدفوعة مسبقاً</option>
+            <option value="debit-card">فيزا</option>
+            <option value="prepaid-card">محفظة الكترونية</option>
           </select>
         </div>
 
