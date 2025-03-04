@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Donations.css";
 import axios from "axios";
+import Footer from '../Footer/Footer';
 import { useNavigate } from "react-router-dom";
 
 const Donations = () => {
@@ -44,7 +45,7 @@ const Donations = () => {
                 </video>
                 <div className="herooverl"></div>
                 <div className="heroContent">
-                    <h1 className="herosubtitle">التبرع هو باب للخير، كن جزءًا من رحلة العطاءمع   <span>  أُفُق الخير.</span></h1>
+                    <h1 className="herosubtitle">التبرع هو باب للخير، كن جزءًا من رحلة العطاء مع   <span>  أُفُق الخير.</span></h1>
                 </div>
             </div>
 
@@ -108,6 +109,7 @@ const Donations = () => {
                     </div>
                 </div>
             </div>
+        <Footer/>
         </>
     );
 };

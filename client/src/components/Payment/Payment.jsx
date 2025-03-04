@@ -5,6 +5,7 @@ import axios from 'axios';
 import { CreditCard, User, Calendar, Lock, DollarSign, CreditCardIcon } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../Footer/Footer';
 
 const Payment = () => {
   const itemId = useParams().id;
@@ -95,7 +96,6 @@ const Payment = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) {
       toast.error('يرجى التحقق من صحة جميع البيانات المدخلة', {
         position: "top-center",
@@ -149,13 +149,14 @@ const Payment = () => {
   };
 
   return (
+    <>
     <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-xl border border-gray-200">
       {/* إضافة حاوية Toastify */}
       <ToastContainer />
 
       <div className="flex justify-center mb-6">
-        <div className="p-3 bg-blue-100 rounded-full">
-          <CreditCard className="w-10 h-10 text-blue-600" />
+        <div className="p-3 bg-[#EDBED8] rounded-full">
+          <CreditCard className="w-10 h-10 text-[#E3007E]" />
         </div>
       </div>
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">معلومات الدفع</h2>
@@ -172,7 +173,7 @@ const Payment = () => {
             name="amount"
             value={paymentDetails.amount}
             onChange={handleChange}
-            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.amount ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.amount ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E3007E] focus:border-transparent`}
           />
           {errors.amount && <p className="text-red-500 text-xs mt-1">{errors.amount}</p>}
         </div>
@@ -187,11 +188,11 @@ const Payment = () => {
             name="paymentMethod"
             value={paymentDetails.paymentMethod}
             onChange={handleChange}
-            className="mt-1 block w-full px-3 py-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="mt-1 block w-full px-3 py-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E3007E] focus:border-transparent"
           >
             <option value="credit-card">بطاقة ائتمان</option>
-            <option value="debit-card">بطاقة خصم</option>
-            <option value="prepaid-card">بطاقة مدفوعة مسبقاً</option>
+            <option value="debit-card">فيزا</option>
+            <option value="prepaid-card">محفظة الكترونية</option>
           </select>
         </div>
 
@@ -206,7 +207,7 @@ const Payment = () => {
             name="nameOfCard"
             value={paymentDetails.nameOfCard}
             onChange={handleChange}
-            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.nameOfCard ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.nameOfCard ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E3007E] focus:border-transparent`}
           />
           {errors.nameOfCard && <p className="text-red-500 text-xs mt-1">{errors.nameOfCard}</p>}
         </div>
@@ -223,7 +224,7 @@ const Payment = () => {
             value={paymentDetails.numOfCard}
             onChange={handleChange}
             placeholder="XXXX XXXX XXXX XXXX"
-            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.numOfCard ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.numOfCard ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E3007E] focus:border-transparent`}
           />
           {errors.numOfCard && <p className="text-red-500 text-xs mt-1">{errors.numOfCard}</p>}
         </div>
@@ -242,7 +243,7 @@ const Payment = () => {
               onChange={handleChange}
               placeholder="MM"
               maxLength="2"
-              className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.month ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+              className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.month ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E3007E] focus:border-transparent`}
             />
             {errors.month && <p className="text-red-500 text-xs mt-1">{errors.month}</p>}
           </div>
@@ -259,7 +260,7 @@ const Payment = () => {
               onChange={handleChange}
               placeholder="YY"
               maxLength="2"
-              className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.year ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+              className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.year ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E3007E] focus:border-transparent`}
             />
             {errors.year && <p className="text-red-500 text-xs mt-1">{errors.year}</p>}
           </div>
@@ -278,15 +279,15 @@ const Payment = () => {
             onChange={handleChange}
             placeholder="CVV"
             maxLength="4"
-            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.code ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+            className={`mt-1 block w-full px-3 py-3 bg-gray-50 border ${errors.code ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E3007E] focus:border-transparent`}
           />
           {errors.code && <p className="text-red-500 text-xs mt-1">{errors.code}</p>}
         </div>
 
         <div className="mt-8">
-          <button
-            type="submit"
-            className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold rounded-lg shadow-lg transition duration-200 transform hover:scale-105 flex items-center justify-center"
+          <button 
+            type="submit" 
+            className="w-full py-4 bg-[#E3007E] cursor-pointer hover:bg-[#E3007E] text-white text-lg font-bold rounded-lg shadow-lg transition duration-200 transform hover:scale-105 flex items-center justify-center"
           >
             <CreditCard className="w-5 h-5 ml-2" />
             إتمام عملية الدفع
@@ -299,6 +300,8 @@ const Payment = () => {
         </div>
       </form>
     </div>
+    <Footer/>
+    </>
   );
 };
 

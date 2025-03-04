@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import Footer from '../Footer/Footer';
 
 const AboutUs = () => {
   const userId = useSelector((state) => state.user.id);
@@ -562,6 +563,7 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
