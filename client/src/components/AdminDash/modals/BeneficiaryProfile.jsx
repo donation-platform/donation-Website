@@ -94,17 +94,7 @@ const BeneficiaryProfile = ({ beneficiary, onClose }) => {
               <span className="ml-1">{mappedBeneficiary.quantity}</span>
             </p>
           </div>
-          
-          <div className="flex items-center">
-            <div className="w-10 flex-shrink-0 text-gray-400">
-              <AlertCircle size={18} />
-            </div>
-            <p className="text-gray-700">
-              <span className="font-medium text-gray-500">رخصة جمع التبرعات:</span>{" "}
-              <span className="ml-1">{mappedBeneficiary.hasFundraisingLicense}</span>
-            </p>
-          </div>
-          
+        
           <div className="flex items-center">
             <div className="w-10 flex-shrink-0 text-gray-400">
               <CheckCircle size={18} />

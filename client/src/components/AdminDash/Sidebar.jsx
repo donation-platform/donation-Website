@@ -17,7 +17,6 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  
   const menuItems = [
     { icon: <FaTachometerAlt />, label: "لوحة التحكم", path: "/AdminDash" },
     { icon: <FaHandHoldingHeart />, label: "التبرعات", path: "/AdminDash/donations" },
@@ -25,14 +24,10 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }) {
     { icon: <FaChartBar />, label: "التقارير", path: "/AdminDash/reports" },
   ];
 
-  
   const handleLogout = async () => {
     try {
-      
       await axios.post("http://localhost:5000/auth/logout", {}, { withCredentials: true });
-
       dispatch(clearUser());
-
       navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
@@ -86,21 +81,21 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }) {
               </Link>
             </li>
           ))}
+          
+          {/* Logout Button */}
+          <li className="mt-3">
+            <button
+              onClick={handleLogout}
+              className="flex items-center w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-white transition-all duration-300 group hover:bg-[#FF5BA8] hover:text-white hover:cursor-pointer"
+            >
+              <span className="text-lg text-white ml-3">
+                <FaSignOutAlt />
+              </span>
+              <span className="text-sm sm:text-base font-medium">تسجيل الخروج</span>
+            </button>
+          </li>
         </ul>
       </nav>
-
-      {/* Logout Button */}
-      <div className="p-4 sm:p-6 border-t border-[#E3007E]">
-        <button
-          onClick={handleLogout}
-          className="flex items-center w-full px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-white transition-all duration-300 hover:bg-[#FF5BA8] hover:text-white"
-        >
-          <span className="text-lg text-white ml-3">
-            <FaSignOutAlt />
-          </span>
-          <span className="text-sm sm:text-base font-medium">تسجيل الخروج</span>
-        </button>
-      </div>
     </aside>
   );
 }
