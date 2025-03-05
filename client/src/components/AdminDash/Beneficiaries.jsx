@@ -20,7 +20,7 @@ const Beneficiaries = () => {
   useEffect(() => {
     const fetchBeneficiaries = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/', { withCredentials: true });
+        const response = await axios.get('http://localhost:5000/api/requests', { withCredentials: true });
         if (response.status == 200) {
           setBeneficiaries(response.data); 
         } else {
