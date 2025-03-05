@@ -2,24 +2,17 @@ require("dotenv").config();
 
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const { sequelize } = require("./utils/database");
 const cors = require("cors");
-const authRoute = require("./routes/auth");
-// const paymentRoute = require("./routes/payment");
-const adminRoute = require("./routes/adminRoute");
-// const requestRoutes = require("../server/routes/routeRequests")
 const path = require("path");
 
+const { sequelize } = require("./utils/database");
+const authRoute = require("./routes/auth");
+const adminRoute = require("./routes/adminRoute");
 const routeRequests = require("./routes/routeRequests");
 const detailsRoutes = require("./routes/details");
 const userRoutes = require("./routes/userRoutes");
-const paymentRoutes = require("./routes/paymentRoutes"); // Import payment routes
+const paymentRoutes = require("./routes/paymentRoutes"); 
 
-// const Approvals = require("./models/approvals");
-// const Categories = require("./models/Categories");
-// const ContactMessage = require("./models/contactMessages");
-// const Feedback = require("./models/Feedback");
-// const Transactions = require("./models/transactions");
 
 const app = express();
 
@@ -36,13 +29,13 @@ app.use(
   })
 );
 
-// Sync database
+
 sequelize
   .sync()
   .then(() => console.log("Database synced"))
   .catch((err) => console.log("Error syncing database:", err));
 
-// Use routes
+
 app.use("/auth", authRoute);
 app.use("/api/requests", routeRequests);
 app.use("/api/users", userRoutes);
